@@ -1,7 +1,6 @@
-
 <p align="center">
-<img align="center" src="images/NLP_image.png">
-<figcaption> source: <a href="https://www.attivio.com/blog/post/what-natural-language-understanding">Attivio.com</a> </figcaption>
+<img align="center" src="images/NLP13-1024x536.jpg" width="600">
+<figcaption> source: <a href="https://www.analyticsinsight.net/why-the-future-is-bright-for-natural-language-processing/">analyticsinsight.net</a> </figcaption>
 </p>
 
 ## Greetings!
@@ -28,7 +27,7 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 ## Chapters:
 1. [Chapter 1 - What? Why? Who? Where?](chapters/chap_1.md)
 2. [Chapter 2 - Methodology, corpora and evaluation](chapters/chap_2.md)
-3. [Chapter 3 - Regular Expressions ](chapters/chap_3.md)
+3. [Chapter 3 - Regular Expressions](chapters/chap_3.md)
 4. [Chapter 4 - Words don’t come easy](chapters/chap_4.md)
 5. [Chapter 5 - N-grams](chapters/chap_5.md)
 

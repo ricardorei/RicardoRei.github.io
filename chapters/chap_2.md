@@ -167,7 +167,7 @@ rounds is returned.
 
 <p align="center">
 <img align="center" src="../images/cross_validation.png" width="533" height="293">
-<figcaption> Image from <a href="http://karlrosaen.com/ml/learning-log/2016-06-20/">Karl Rosaen Log</a> </figcaption>
+<figcaption> Image from <a href="http://karlrosaen.com/ml/learning-log/2016-06-20/">Karl Rosaen Blog</a> </figcaption>
 </p>
 
 
@@ -252,7 +252,35 @@ recall means no false negatives.
 single metric, and it is defined as a weighted harmonic mean of precision
 and recall (usually we set $$\beta$$ = 1 (F1)):
 
-$$\text{F}_{\beta} = \frac{(\beta^2 +1) \times \text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} \times \text{Recall}}$$
+$$\text{F}_{\beta} = \frac{(\beta^2 +1) \times \text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} + \text{Recall}}$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lets imagine that we have developed a search engine to answer queries in natural language about fruits and vegetables. 
+The knowledge-base of our engine only contains information about the following fruits/vegetables:
+- Watermellons, Bell Peppers, Large Tomatos, Pomegranates, Bananas, Green Apples, Red Apples, Large Red Apples, Fuji Apples, Yellow Apples, Lemons, Kiwis and Raisins
+
+Consider now the following query:
+> red, medium-sized fruits
+
+and the respective system answer:
+> Bell peppers, Large Tomatos, Pomegranates, Large Red Apples, Red Apples, Fuji Apples
+
+<p align="center">
+<img align="center" src="../images/fruits.png" >
+<figcaption> Image from <a href="https://opensourceconnections.com/blog/2016/03/30/search-precision-and-recall-by-example/" width="269" height="355">John Berryman Post</a> </figcaption>
+</p>
+
+The precision of our system for that query is:
+
+$$ \frac{3}{3+3} = \frac{1}{2} $$
+
+the recall is:
+
+$$ \frac{3}{3} = 1 $$ 
+
+and finally, the *F-measure* is:
+
+$$ \frac{2 \times 0.5 \times 1}{0.5+1} \simeq 0.667\$$
+
 
 ---
 **Exercise 6: Precision vs. Recall**

@@ -89,9 +89,9 @@ To conclude, let us define the literal meaning of a sentence to be its default m
 </p>
 
 In Portugal there are many research centers working in NLP, including
-the one from INESC-ID (L2F). In fact there are research centers at Porto,
-Aveiro, Minho, Algarve, Evora and in companies such as Unbabel,
-Priberam and Microsoft. In the rest of the world there are many and many
+the one from [INESC-ID (L2F)](https://www.l2f.inesc-id.pt/w/Welcome_to_the_Spoken_Language_Systems_Lab). In fact there are research centers at Porto,
+Aveiro, Minho, Algarve, Evora and in companies such as [Unbabel](https://unbabel.com/),
+[Priberam](http://www.priberam.pt/) and [Microsoft](https://www.microsoft.com/en-us/research/group/natural-language-processing/). In the rest of the world there are many and many
 groups working in NLP. Recently, Jurafsky (the author of the [book](https://web.stanford.edu/~jurafsky/slp3/)
 that I recommend for this course and from which this material is strongly
 inspired) decided to give on-line NLP courses. These courses – that I also
@@ -108,7 +108,7 @@ also used in the communication process).
 
 ## What about the involved knowledge?
 
-In fact, having people with di↵erent backgrounds in a research group can be
+In fact, having people with different backgrounds in a research group can be
 a big advantage. For instance, linguists study, analyze and dissect language
 until exhaustion. Some computer scientists profit from their knowledge to
 create their symbolic (rule-based) models/tools. However, it is also true that
