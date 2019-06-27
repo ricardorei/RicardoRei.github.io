@@ -135,6 +135,214 @@ are writing rules for it, you should use the training corpus. Otherwise, when
 you evaluate your system you will do so with something that your learning
 algorithm or yourself already know, which leads to an unsound evaluation.
 
+---
+**Exercise 4: The problem of using the test set for development or training**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Think about this, please.
+
+---
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If you need to make several tests of your system before the final one
+(which is always a good idea), you should take part of your training set
+and build a development corpus with it, which simulates the test corpus.
+Therefore, before testing your system with the test corpus you can test it
+with the development corpus, look at the results, tune your work and test
+again with the development set. There is no problem with that. The final
+evaluation should be made with the testing corpus that was left untouched
+until then.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notice also that sometimes it is so time-consuming and expensive to
+build corpora that only a small collection is built (sometimes called the
+gold-collection) and used for testing.
+
+
+### Cross validation
+
+If you are using your corpus for a learning purpose, you can also not split
+it in training/development/testing and, alternatively, make a k-fold cross
+validation: you split your corpus into k sets, train your system using k-
+1 sets and test it with the remaining one. Usually multiple rounds are 
+performed using different partitions and, at the end, the average over the
+rounds is returned.
+
+<p align="center">
+<img align="center" src="../images/cross_validation.png" width="533" height="293">
+<figcaption> Image from <a href="http://karlrosaen.com/ml/learning-log/2016-06-20/">Karl Rosaen Log</a> </figcaption>
+</p>
+
+
+### The nature of the corpus
+
+There is another thing that you should pay much attention to: the nature
+of these corpora needs to be the same for both training and testing,
+otherwise you won't be able to conclude much. For instance, it is a really
+bad idea to train your system with a corpus of newspapers and then test it
+with a book for children; or to learn to identify writers in a poetry corpus
+and test the authors' identification in other literature genres.
+
+---
+**Exercise 5: The nature of the corpus**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Think about this, please.
+
+---
+
+## Evaluation
+
+One of the first things you will do in your work will likely be implementing
+a baseline. The baseline represents the starting point of your system: a
+specific configuration with which results are known. Then, you will make
+your experiments (add other corpus, change some parameters/algorithms,
+etc.) and compare the attained results with the baseline, in order to check
+if you are improving them. For instance, if your master thesis comes in
+sequence of a previous master, the results obtained by your colleague can
+be used as the baseline. Then your work will be to (try to) improve them.
+
+### Extrinsic vs. intrinsic evaluation
+
+If you evaluate your NLP system independently of the context in which it
+will be used, you are making an intrinsic evaluation of it; however, if you
+evaluate your NLP system as a component of a more complex NLP system,
+you are performing an extrinsic evaluation of it. As an example, consider
+that you have developed a Question Classifier, that is, a module that tells
+you what type of answer should be returned for any question (for instance,
+location for Where is Marinhais? or people for Who won the Oscar for
+best actor in 2013). When you evaluate how good your Question Classifier
+is in returning the correct answer type, you are performing an intrinsic
+evaluation of it. However, if you use your Question Classifier within a QA
+system, the results of the QA system allow you to extrinsically evaluate
+your Question Classifier. What's funny is that sometimes a module with a
+(relatively) poor performance can really make an honest contribution when
+used in a more complex system.
+
+### Evaluation measures
+
+Another thing that you should know is that, in order to evaluate your work
+and/or allow a straightforward comparison with other works, several measures
+have been proposed in the literature, some being specific to certain
+frameworks. While **precision**, **recall** and **F-measure** are used in many
+applications (sometimes with small variations), other evaluation metrics
+have specific targets. Thus, **BLEU**, **METEOR** and many others are used
+to evaluate machine translation systems, **ROUGE** is used to evaluate
+summarization systems and **perplexity** is used to evaluate, for instance
+language models (coming soon to a class near you).
+
+Considering the following, we will define precision, recall and F-measure,
+as used, for instance, in **Information Retrieval**:
+
+* TP = true positives;
+* TN = true negatives ;
+* FP = false positives (type 1 errors);
+* FN = false negatives (type 2 errors).
+
+Precision is defined as the fraction of retrieved instances that are relevant,
+i.e.,
+
+$$\text{Precision} = \frac{TP}{TP + FP}$$
+
+Recall is defined as the fraction of relevant instances that are retrieved,
+i.e.,
+
+$$\text{Recall} = \frac{TP}{TP + FN}$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notice that a maximum precision means no false positives and a maximum
+recall means no false negatives.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The *F-measure* can be used to combine the above two measures into a
+single metric, and it is defined as a weighted harmonic mean of precision
+and recall (usually we set $$\beta$$ = 1 (F1)):
+
+$$\text{F}_{\beta} = \frac{(\beta^2 +1) \times \text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} \times \text{Recall}}$$
+
+---
+**Exercise 6: Precision vs. Recall**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consider the following text:
+
+*"The capital of Portugal, Lisbon (Portuguese: Lisboa) has experienced a
+renaissance in recent years, with a contemporary culture that is alive and
+thriving and making its mark in today’s Europe. Lisbon lacks a defined
+"downtown", but the the vast Praça do Comércio, facing the river at the base
+of the pedestrianized grid of Baixa (lower town), occupies a central position.
+Further northwest from Baixa stretches Lisbon's "Main Street", Avenida da
+Liberdade, a broad boulevard resplendent in leafy trees, chic hotels and upscale
+shops, terminating at the circular Praça de Marques de Pombal. To the
+east are old neighborhoods of Mouraria and Alfama, both relatively spared
+during the Great Earthquake (as they are on a firmer rock) and therefore
+both retaining the charm of the winding alleys and azulejo-covered crumbling
+walls (further north lie relatively boring residential quarters)."* - (taken from [Wikitravel](http://wikitravel.org/en/Lisbon))
+
+and two systems (A and B) that use it for testing their task of extracting locations.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Knowing that system A extracted the locations Portugal, Lisboa, Avenida
+da Liberdade and Alfama and that system B extracted Portugal, Lisbon,
+Portuguese, Lisboa, Praça do Comércio, Europe, Main Street, Alfama and
+Great Earthquake, calculate the recall and precision obtained by these systems.
+Which one is better?
+
+---
+
+---
+**Exercise 7: Precision better that recall?**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Identify two scenarios where a good precision is more important that a good
+recall and vice-versa.
+
+---
+
+Do you remember talking about QA (yes, Question/Answering)? The
+Mean Reciprocal Rank (MRR) is a specifically tailored evaluation measure
+for QA, as it can be used to evaluate systems that return ranked lists
+of possible answers for a given question. For a test set of N questions, the
+MRR is given by:
+
+$$ \text{MRR} = \frac{1}{N} \sum_{i=1}^N \frac{1}{rank_i} $$
+
+where $$rank_i$$ denotes the position of the ground-truth answer in the list of candidate answers returned by the system.
+
+Consider the following table:
+
+| Question                          | Ranked list of answers             | Rank | RR  |
+| :-------------------------------- | :--------------------------------: | :---:| --: |
+| What is the capital of Portugal?  | **Lisbon**, Paço de Arcos, Oporto, Viseu | 1    | 2   |
+| When was Mozart born?  | 1884, 1870, 1756, 2012 | 3    | 1/3  |
+| Who is the 44th president of the USA?  | B. Clinton, D. Trump, R. Paul, Sampaio | 2    | 1/2   |
+
+with a fictitious run of a QA system for a small test set of three questions. The MRR of such system is:
+
+$$ \frac{1 + \frac{1}{3} + \frac{1}{2}}{3} \simeq 0.61 $$
+
+---
+**Exercise 8: Precision and recall – the real problem**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consider Edgar Smith, the agent that answers questions about
+Monserrate. Consider also that if the posed question is outside its domain of
+expertise, it should answer *Sorry, can't answer that*. Finally, consider that
+its database does not have all the information it needs about its domain.
+What will be the TP, TN, FP, FN in this scenario?
+
+---
+
+<p align="center">
+<img align="center" width="480" height="386" src="../images/edgar.png"> 
+</p>
+
+> Edgar is a tutoring agent at Monserrate palace, Sintra. Click [here](https://www.aclweb.org/anthology/papers/P/P13/P13-4011/) to "Meet" Edgar. 
+
+### Evaluation fora
+
+In order to allow a straightforward comparison between systems, many evaluation
+fora take place nowadays (please, take a look at [CLEF](http://www.clef-initiative.eu/) or [TREC](https://trec.nist.gov/)
+pages, for instance). Many different tasks are proposed in these fora (QA,
+Information Retrieval, Plagiarism detection, etc.) and you only need to register
+your system in the ones related with your work. You are given access
+to the training data and, at a certain previously scheduled date, the test 
+sets are released. Then you have a limited amout of time (some hours, a
+week, ...) to send the results of your system to the organizers. After some
+time, all the results obtained by the competing systems are divulged and
+everybody can see how good (or bad) his/her system is, evaluated in the
+same conditions.
+
 <div>
   <a href="chap_1.html" style="float: left;">❮ Previous chapter</a>
   <a href="chap_3.html" style="float: right;">Next chapter ❯</a>
