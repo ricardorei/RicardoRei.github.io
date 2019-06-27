@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=794b93d356ac5f977d45a6de5089ce84a6b45bdd">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Natural Language Processing | Yet another NLP blog…</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Natural Language Processing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Yet another NLP blog…" />
+<meta property="og:description" content="Yet another NLP blog…" />
+<link rel="canonical" href="http://localhost:4000/chapters/chap_2.html" />
+<meta property="og:url" content="http://localhost:4000/chapters/chap_2.html" />
+<meta property="og:site_name" content="Natural Language Processing" />
+<script type="application/ld+json">
+{"description":"Yet another NLP blog…","@type":"WebPage","url":"http://localhost:4000/chapters/chap_2.html","headline":"Natural Language Processing","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+            <a id="forkme_banner" href="https://github.com/ricardorei/ricardorei.github.io">View on GitHub</a>
+          
+
+          <h1 id="project_title">Natural Language Processing</h1>
+          <h2 id="project_tagline">Yet another NLP blog...</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <ul>
+  <li><a href="/">Home</a></li>
+</ul>
+
+<h1 id="methodology-corpora-and-evaluation">Methodology, corpora and evaluation</h1>
+
+<blockquote>
+  <p>Text by: <a href="authors.md">Luísa Coheur</a></p>
+</blockquote>
+
+<p>Depending on the problem at hand, your framework will vary. However,
+there are some elements that are common in almost every research in NLP.
+For instance, the way you should deal with your data, so that your experiments
+are considered to be sound, and the evaluation metrics you will use.
+In this section we will discuss this issues.</p>
+
+<h2 id="the-scientific-method">The scientific method</h2>
+
+<p>Do you remember studying the scientific method in biology, when you were
+a kid? According to the Merriam-Webster dictionary, a scientific method
+consists of:</p>
+
+<blockquote>
+  <p>“The collection of data through observation and experimentation, and the formulation and testing of hypotheses”.</p>
+</blockquote>
+
+<p>     In order to explain different phenomena, scientists suggest hypotheses,
+and design experiments to test them. In NLP you should also follow the
+scientific method. First, you should know something about the phenomena
+that is the target of your research and you should be able to perfectly identify
+the goals of your work and the hypothesis that you want to test. Then you
+should think on how you will test this – which architecture, which corpora
+(corpora is the plural of corpus and no, it doesn’t mean “dead body”), which
+metrics, which tools – and design the experiments that will corroborate (or
+not) your point (remember that if you change more than one variable at
+the same time, you will not be able to understand what was responsible
+for the attained results). Then you implement the system that will allow
+you to run your experiments, you will run it, you will evaluate the results
+using (known) evaluation metrics and you will see if your hypothesis still
+rules. If it does, perfect, you made your point. If it doesn’t, don’t cross your
+arms, you should try to understand what went wrong (make a detailed error
+analysis – results don’t bite) and reformulate your hypotheses. Notice that
+not having a good result may also be interesting: if your hypothesis is well
+justified, I’m sure many people will want to know about it. Also notice that
+if similar systems also report results, you should run your experiments with
+the same data, so that you can make a straightforward comparison with
+them. This is exactly the process that I want you to follow in this course
+(this is really important).</p>
+
+<h2 id="corpora">Corpora</h2>
+
+<h3 id="building-corpora">Building corpora</h3>
+
+<p>One of NLP researchers’ best friends are corpora. Regardless of whether
+your research falls into a symbolic or a statistical approach, corpora are
+always welcome. However, collecting corpora and processing it, so that
+it can be used for training or testing, is a time consuming and expensive
+task, that sometimes can only be done by experts (would you be able to
+label a text with the morpho-syntactic category of each word? Well… me
+neither). Many efforts were done in recent years and there are many corpora
+at your disposal, as well as many annotation guidelines, which can be used
+depending on your application needs (Brown Corpus, Floresta Sintáctica,
+Público, etc.). There are also organizations that centralize many corpora and
+sell them (see for instance the European Language Resources Association
+(ELRA) or the Linguistic Data Consortium (LDA) webpage). Recently,
+many researchers have been using the <a href="https://www.mturk.com/">Mechanical Turk</a> and many people
+from the NLP community are using “Requesters” to create several types of
+corpora.
+     Nevertheless, it might happen that you will have to build your own
+corpora for your experiments (at least for testing your application). If so,
+take some time to think how you will do it and don’t neglect this task, as
+the success of your work is highly dependent on it.</p>
+
+<h3 id="inter-annotator-agreement">Inter-annotator agreement</h3>
+<p>The concordance among raters (also called inter-rater reliability or interrater
+agreement) tells you how much consensus there is in the ratings given
+by judges on some task. For instance, consider that I give you a text and
+tell you to classify a set of answers of a virtual agent as being appropriate or
+not, in a scale from 1 to 10. Consider also that I propose the same exercise
+to a friend of yours. Then, I will see how much agreement there is between
+you. If the degree is low, either the scale is defective or you need to be
+trained in doing such job. There are many statistics which can be used to
+determine inter-annotator agreement. An example of one such measure is
+the <a href="https://en.wikipedia.org/wiki/Cohen%27s_kappa">Cohen’s kappa coefficient</a>, as defined in following Equation:</p>
+
+<script type="math/tex; mode=display">K = \frac{P(a) - P(e)}{1- P(e)}</script>
+
+<p>where:</p>
+<ul>
+  <li><script type="math/tex">P(a)</script> is the relative observed agreement among raters;</li>
+  <li><script type="math/tex">P(e)</script> is the probability of random agreement (during class I will explain how to calculate this value).</li>
+</ul>
+
+<p>As an example, consider that two annotators have to classify some questions
+with A, B or C, and that Table 1 summarizes the inter-annotator
+agreement results.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: center">A</th>
+      <th style="text-align: center">B</th>
+      <th style="text-align: center">C</th>
+      <th style="text-align: right">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">A</td>
+      <td style="text-align: center">15</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: right">15</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">B</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">21</td>
+      <td style="text-align: center">3</td>
+      <td style="text-align: right">25</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">C</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Total</td>
+      <td style="text-align: center">16</td>
+      <td style="text-align: center">21</td>
+      <td style="text-align: center">4</td>
+      <td style="text-align: right">41</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table 1: Inter-annotator agreement.</p>
+
+<p>     Annotators agreed on the evaluation of 37 of the 41 questions: 15 A, 21 B
+and 1 C. Therefore, the relative observed agreement among raters, <script type="math/tex">P(a)</script>, is
+<script type="math/tex">\frac{15 + 21 + 1}{41} = 0.90</script>. To calculate the probability of chance agreement,
+<script type="math/tex">P(e)</script>, we need to find the probability that both would say “A” randomly,
+the probability that both would say “B” randomly and the probability that
+both would say “C” randomly. The former is given by <script type="math/tex">\frac{16}{41} \times \frac{15}{41}</script>. The
+remaining by  <script type="math/tex">\frac{21}{41} \times \frac{25}{41}</script> and <script type="math/tex">\frac{4}{41} \times \frac{1}{41}</script>, respectively. 
+Then we sum all the obtained values. <script type="math/tex">P(e)</script> is, then, <script type="math/tex">0.46</script>. Finally, the kappa coefficient (K)
+is <script type="math/tex">0.82</script>.</p>
+
+<p>     Now, you are probably thinking if this is good or bad. Well, there is
+not much agreement on this, but some authors consider:</p>
+<ul>
+  <li>&lt; 0: no agreement;</li>
+  <li>0 – 0.20: slight agreement;</li>
+  <li>0.21 – 0.40: fair agreement;</li>
+  <li>0.41 – 0.60: moderate agreement;</li>
+  <li>0.61 – 0.80: substantial agreement;</li>
+  <li>0.81 – 1: almost perfect agreement.</li>
+</ul>
+
+<p>     Thus, the previous result is considered by some authors an almost perfect
+agreement (ufa!).</p>
+
+<p>     To conclude, let me just note that this measure can only be used with
+two raters; a similar measure of agreement, called the Fleiss’ Kappa can be
+used when more than two raters are involved (and many other measures exist
+with this purpose). This is just to give you an idea of what the concordance
+among raters is.</p>
+
+<h3 id="training-testing-and-development-sets">Training, testing and development sets</h3>
+
+<p>Regarding the usage of corpora, several restrictions need to be respected if
+you want to have a methodologically correct work. So, please, during the
+whole course, don’t forget the following: divide your corpora in training
+and test sets (typically 80%–90% of the corpus is used for training and the
+rest for testing – the reference). If you are learning from a corpus or if you
+are writing rules for it, you should use the training corpus. Otherwise, when
+you evaluate your system you will do so with something that your learning
+algorithm or yourself already know, which leads to an unsound evaluation.</p>
+
+<div>
+  <a href="chap_1.html" style="float: left;">❮ Previous chapter</a>
+  <a href="chap_3.html" style="float: right;">Next chapter ❯</a>
+</div>
+
+<p><br /><br /></p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p class="copyright">Natural Language Processing maintained by <a href="https://github.com/ricardorei">ricardorei</a></p>
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+  </body>
+</html>

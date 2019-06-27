@@ -1,0 +1,24 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.editor {
+    float: left;
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+  
+  .luisa {
+    background-image: url('../../images/luisa_profile.png');
+  }
+  
+  .ricardo {
+    background-image: url('../../images/ricardo_profile.jpg');
+  }
