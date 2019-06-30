@@ -31,13 +31,14 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 4. [Chapter 4 - Words don’t come easy](chapters/chap_4.md)
 5. [Chapter 5 - N-grams](chapters/chap_5.md)
 5. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md)
+5. [Chapter 7 - Syntax important Natural very Language is](chapters/chap_7.md)
 
 
 ## Editors:
 
-[Luísa Coheur](authors.md)
+<a href="./authors.html#Luisa">Luísa Coheur</a>
 
-[Ricardo Rei](authors.md)
+<a href="./authors.html#ricardo">Ricardo Rei</a>
 
 ### Support or Contact
 

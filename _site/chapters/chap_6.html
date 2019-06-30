@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=53c624b8164cda424b2d0ea15c9da50185e8b972">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=7236c73b1a6afbcd506cd26335d94079e82d1297">
 
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>Natural Language Processing | Readings &amp; materials for learning NLP from the ground up!</title>
@@ -243,7 +243,7 @@ is the likelihood of W being given T.</li>
 
 <hr />
 
-<p><strong>Exercise 21: Why is posterior distribution hard to calculate?</strong></p>
+<p><strong>Exercise 23: Why is posterior distribution hard to calculate?</strong></p>
 
 <p>     Think why it is more difficult to calculate 
 <script type="math/tex">P(T | W)</script>
@@ -268,9 +268,103 @@ assume that:</p>
 
 <p>Due to this, the following approximations can be done:</p>
 
+<script type="math/tex; mode=display">P(W|T) \approx \prod_{i=1}^n P(w_i|t_i)</script>
+
+<script type="math/tex; mode=display">P(T) \approx \prod_{i=1}^n P(t_i|t_{i-1})</script>
+
+<p>Therefore, the formula that we need to calculate is now given by:</p>
+
+<script type="math/tex; mode=display">\arg\max_{t \in \tau} P(W|T) \times P(T) \approx \prod_{i=1}^n P(w_i|t_i)P(t_i|t_{i-1})</script>
+
+<p>The good news is that we now know how to calculate this:</p>
+
+<script type="math/tex; mode=display">P(t_i|t_{i-1}) = \frac{C(t_{i-1} t_i)}{C(t_{i-1})}</script>
+
+<script type="math/tex; mode=display">P(w_i|t_i) = \frac{C(t_i, w_i)}{C(t_i)}</script>
+
+<h4 id="viterbi-algorithm">Viterbi algorithm</h4>
+
+<p>For models such as HMM that contain hidden variables, the task of determining
+which of the variables is the source of an observable sequence is
+called decoding. The Viterbi algorithm is often used with HMMs and
+it seeks the best path; it is based on probabilities and uses the technique
+of <strong>dynamic programming</strong> (solve small problems and memorize the best
+solution).</p>
+
+<p>     Considering that:</p>
+
+<ul>
+  <li><script type="math/tex">N = \#  \{L_1, ..., L_n\}</script>;</li>
+  <li><script type="math/tex">n =</script> number of words in the given sequence <script type="math/tex">w_1, ..., w_n</script>;</li>
+  <li>SS is an array <script type="math/tex">N \times n</script> that registers the best punctuation of the best sequence found until a certain position with label <script type="math/tex">L_i</script>;</li>
+  <li>BP is an array <script type="math/tex">N \times n</script> that registers the best probability of a transition from the previous to the current state;</li>
+  <li>C is an array <script type="math/tex">1 \times n</script> that registers the best sequence of labels.</li>
+</ul>
+
+<p>     Then, the Viterbi algorithm works as follows:</p>
+
+<p align="center">
+<img align="center" src="../images/vitterbi.png" width="625" height="600" /> 
+</p>
+
+<hr />
+
+<p><strong>Exercise 24: Viterbi</strong></p>
+
+<p>     Consider the labels N and V, and the sequence of words A B A. Knowing the
+following probabilities, use Viterbi to calculate the best sequence of labels for that sequence of words:</p>
+
+<ul>
+  <li><script type="math/tex">% <![CDATA[
+P(N | <s>) = 0.25 %]]></script>
+, 
+<script type="math/tex">% <![CDATA[
+P(V | <s>) = 0.3 %]]></script></li>
+  <li><script type="math/tex">P(A|N) = 0.1</script>
+,
+<script type="math/tex">P(A|V) = 0.3</script>
+,
+<script type="math/tex">P(B|N) = 0.2</script>
+,
+<script type="math/tex">P(B|V) = 0.4</script></li>
+  <li><script type="math/tex">P(N|V) = 0.15</script>
+,
+<script type="math/tex">P(N|N) = 0.2</script>
+,
+<script type="math/tex">P(V|V) = 0.75</script>
+,
+<script type="math/tex">P(V|N) = 0.25</script></li>
+</ul>
+
+<hr />
+
+<h2 id="very-brief-review-of-portuguese-morphology--back-to-school">Very brief review of Portuguese morphology – back to school</h2>
+
+<p>Each word can have more than one morphological tag, according with its
+function in a sentence. For instance, you can say <em>Estava uma noite escura |
+branca | clara | amarela | verde</em>, but you can’t say <em>Estava uma noite de</em> or
+<em>Estava uma noite dormir</em>. That is, if you have an adjective, you can replace
+it by another adjective, but not with a preposition or a verb (an exception are
+nouns and pronouns). You don’t remember what a pronoun or a preposition
+is? Well, let us review some morphological classes (remember this, because
+you will need it for the Syntax chapter); capitalized words illustrate each
+class:</p>
+
+<ul>
+  <li>Nouns: <em>JOAQUIM estava a ler na SALA quando ouviu um BARULHO no JARDIM.</em></li>
+  <li>Determiners: <em>Era UM ruído estranho, O mais estranho de sempre, UM leve e suave arrastar.</em></li>
+  <li>Pronouns: <em>_Sem que ELE o conseguisse evitar, sentiu o SEU coração a começar a bater com força.</em></li>
+  <li>Verbs: <em>DIRIGIU-SE à porta, mas PAROU, com a maçaneta na mão.</em></li>
+  <li>Adjectives: <em>Sentia um pavor INDESCRITÍVEL a entranhar-se no corpo.</em></li>
+  <li>Adverbs: <em>LENTA e FIRMEMENTE um frio glaciar subia por ele acima.</em></li>
+  <li>Prepositions: <em>O que estaria DO outro lado DA porta? O que estaria NO jardim?</em></li>
+  <li>Conjunction: <em>Tremendo, Joaquim abriu a porta E espreitou.</em></li>
+  <li>Interjections: <em>Nem teve tempo de gritar “AQUI D’EL REI”, “DIACHO” ou “IRRA”.</em></li>
+</ul>
+
 <div>
   <a href="chap_5.html" style="float: left;">❮ Previous chapter</a>
-  <a href="chap_6.html" style="float: right;">Next chapter ❯</a>
+  <a href="chap_7.html" style="float: right;">Next chapter ❯</a>
 </div>
 
 <p><br /><br /></p>

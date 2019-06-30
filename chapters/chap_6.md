@@ -175,7 +175,7 @@ is the likelihood of W being given T.
 
 ---
 
-**Exercise 21: Why is posterior distribution hard to calculate?** 
+**Exercise 23: Why is posterior distribution hard to calculate?** 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Think why it is more difficult to calculate 
 $$ P(T | W) $$
@@ -198,9 +198,99 @@ assume that:
 
 Due to this, the following approximations can be done:
 
+$$ P(W|T) \approx \prod_{i=1}^n P(w_i|t_i) $$
+
+$$ P(T) \approx \prod_{i=1}^n P(t_i|t_{i-1}) $$
+
+Therefore, the formula that we need to calculate is now given by:
+
+$$ \arg\max_{t \in \tau} P(W|T) \times P(T) \approx \prod_{i=1}^n P(w_i|t_i)P(t_i|t_{i-1}) $$
+
+The good news is that we now know how to calculate this:
+
+$$ P(t_i|t_{i-1}) = \frac{C(t_{i-1} t_i)}{C(t_{i-1})} $$
+
+$$ P(w_i|t_i) = \frac{C(t_i, w_i)}{C(t_i)} $$
+
+#### Viterbi algorithm
+
+For models such as HMM that contain hidden variables, the task of determining
+which of the variables is the source of an observable sequence is
+called decoding. The Viterbi algorithm is often used with HMMs and
+it seeks the best path; it is based on probabilities and uses the technique
+of **dynamic programming** (solve small problems and memorize the best
+solution).
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Considering that:
+
+* $$ N = \#  \{L_1, ..., L_n\} $$;
+* $$ n = $$ number of words in the given sequence $$ w_1, ..., w_n $$;
+* SS is an array $$ N \times n $$ that registers the best punctuation of the best sequence found until a certain position with label $$ L_i $$;
+* BP is an array $$ N \times n $$ that registers the best probability of a transition from the previous to the current state;
+* C is an array $$ 1 \times n $$ that registers the best sequence of labels.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then, the Viterbi algorithm works as follows:
+
+<p align="center">
+<img align="center" src="../images/vitterbi.png" width="625" height="600"> 
+</p>
+
+---
+
+**Exercise 24: Viterbi**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Consider the labels N and V, and the sequence of words A B A. Knowing the
+following probabilities, use Viterbi to calculate the best sequence of labels for that sequence of words:
+
+
+* 
+$$ P(N | <s>) = 0.25 $$
+, 
+$$ P(V | <s>) = 0.3 $$
+* 
+$$P(A|N) = 0.1$$
+,
+$$P(A|V) = 0.3$$
+,
+$$P(B|N) = 0.2$$
+,
+$$P(B|V) = 0.4$$
+* 
+$$P(N|V) = 0.15$$
+,
+$$P(N|N) = 0.2$$
+,
+$$P(V|V) = 0.75$$
+,
+$$P(V|N) = 0.25$$
+
+---
+
+## Very brief review of Portuguese morphology – back to school
+
+Each word can have more than one morphological tag, according with its
+function in a sentence. For instance, you can say _Estava uma noite escura |
+branca | clara | amarela | verde_, but you can't say _Estava uma noite de_ or
+_Estava uma noite dormir_. That is, if you have an adjective, you can replace
+it by another adjective, but not with a preposition or a verb (an exception are
+nouns and pronouns). You don't remember what a pronoun or a preposition
+is? Well, let us review some morphological classes (remember this, because
+you will need it for the Syntax chapter); capitalized words illustrate each
+class:
+
+* Nouns: _JOAQUIM estava a ler na SALA quando ouviu um BARULHO no JARDIM._
+* Determiners: _Era UM ruído estranho, O mais estranho de sempre, UM leve e suave arrastar._
+* Pronouns: __Sem que ELE o conseguisse evitar, sentiu o SEU coração a começar a bater com força._
+* Verbs: _DIRIGIU-SE à porta, mas PAROU, com a maçaneta na mão._
+* Adjectives: _Sentia um pavor INDESCRITÍVEL a entranhar-se no corpo._
+* Adverbs: _LENTA e FIRMEMENTE um frio glaciar subia por ele acima._
+* Prepositions: _O que estaria DO outro lado DA porta? O que estaria NO jardim?_
+* Conjunction: _Tremendo, Joaquim abriu a porta E espreitou._
+* Interjections: _Nem teve tempo de gritar "AQUI D'EL REI", "DIACHO" ou "IRRA"._
+
 <div>
   <a href="chap_5.html" style="float: left;">❮ Previous chapter</a>
-  <a href="chap_6.html" style="float: right;">Next chapter ❯</a>
+  <a href="chap_7.html" style="float: right;">Next chapter ❯</a>
 </div>
 
 <br/><br/>
