@@ -30,6 +30,7 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 3. [Chapter 3 - Regular Expressions](chapters/chap_3.md)
 4. [Chapter 4 - Words don’t come easy](chapters/chap_4.md)
 5. [Chapter 5 - N-grams](chapters/chap_5.md)
+5. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md)
 
 
 ## Editors:
@@ -40,6 +41,6 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 
 ### Support or Contact
 
-Luísa Coheur: luisa.coheur@inesc-id.pt
+Luísa Coheur: <a href = "mailto: luisa.coheur@inesc-id.pt">luisa.coheur@inesc-id.pt</a> 
 
-Ricardo Rei: ricardo.rei@unbabel.com
+Ricardo Rei: <a href = "mailto: ricardo.rei@unbabel.com">ricardo.rei@unbabel.com</a>

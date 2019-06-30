@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=53c624b8164cda424b2d0ea15c9da50185e8b972">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Natural Language Processing | Readings &amp; materials for learning NLP from the ground up!</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Natural Language Processing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Readings &amp; materials for learning NLP from the ground up!" />
+<meta property="og:description" content="Readings &amp; materials for learning NLP from the ground up!" />
+<link rel="canonical" href="http://localhost:4000/chapters/chap_6.html" />
+<meta property="og:url" content="http://localhost:4000/chapters/chap_6.html" />
+<meta property="og:site_name" content="Natural Language Processing" />
+<script type="application/ld+json">
+{"description":"Readings &amp; materials for learning NLP from the ground up!","@type":"WebPage","url":"http://localhost:4000/chapters/chap_6.html","headline":"Natural Language Processing","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+            <a id="forkme_banner" href="https://github.com/ricardorei/ricardorei.github.io">View on GitHub</a>
+          
+
+          <h1 id="project_title">Natural Language Processing</h1>
+          <h2 id="project_tagline">Readings & materials for learning NLP from the ground up!</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <ul>
+  <li><a href="/">Home</a></li>
+</ul>
+
+<h1 id="morphology-what-is-it-is-there-a-cure">Morphology? What is it? Is there a cure?</h1>
+
+<blockquote>
+  <p>Text by: <a href="authors.md">Luísa Coheur</a></p>
+</blockquote>
+
+<p><strong>Morphology</strong> is the linguistics field dedicated to the study of the internal
+structure of words (morph = shape, logos = word).</p>
+
+<p>     Being able to determine the morphology of words can be extremely important
+to get, for instance, their accurate lemmas; it is also a fundamental
+step should a syntactic analysis be required. Many applications are based on
+some morphological processing. For instance, if you want to know whether
+two words in different languages have the same origin (organization vs. organização), 
+that is, if they are <strong>cognates</strong> (another fancy word to impress
+your friends), morphology can help.</p>
+
+<p align="center">
+<img align="center" width="232" height="256" src="../images/morphology_meme.jpg" /> 
+</p>
+
+<p>     In this chapter we will study words’ constituents (morphologic parsing)
+and we will see different techniques to mark words in a text with morphosyntactic tags.</p>
+
+<p>     This chapter is particularly inspired by <a href="https://web.stanford.edu/~jurafsky/slp3/">Jurasfsky’s book</a>, 
+previous <a href="https://www.l2f.inesc-id.pt/w/Nuno_Mamede">Nuno Mamede</a>’s slides and also the slides of Sudeshna Sarkar. All the silly jokes
+and mistakes are on me.</p>
+
+<h2 id="dissecting-words-into-morphemes">Dissecting words into morphemes</h2>
+
+<p>Words are constituted by (meaningful) units called <strong>morphemes</strong>. There are
+two types of morphemes:</p>
+<ol>
+  <li><strong>stems</strong>, which carry the primary of meaning of words;</li>
+  <li><strong>affixes</strong>, which change stems meaning and/or have grammatical functions. They come in different types:
+    <ul>
+      <li><strong>prefixes:</strong> added at the beginning of the word. For instance, anti from <em>anti-motim</em>, or <em>des</em> from <em>desinteressante</em>;</li>
+      <li><strong>suffixes:</strong> appear at the end of the word. An example is <em>os</em> from <em>gatos</em>, <em>alunos</em>, etc.</li>
+      <li><strong>infixes:</strong> are inserted inside the stem</li>
+      <li><strong>circumfixes:</strong> precede and follow the stem and are inserted at the same time. For instance, <em>amanhecer</em> has this type of affix.</li>
+      <li><strong>clitics:</strong> these are morpheme that function like a word, but that do not appear alone. Example: <em>os</em> in <em>vi–os</em>.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>     There are languages (called <strong>agglutinative Languages</strong>) where words can contain an impressive number of morphemes. 
+Turkish, for instance, has many words with 9 or 10 morphemes.</p>
+
+<p align="center">
+<img align="center" src="../images/agglutinative.png" />
+<figcaption> Image taken from <a href="http://specgram.com/CLII.3/09.phlogiston.cartoon.3.html">http://specgram.com/CLII.3/09.phlogiston.cartoon.3.html</a> </figcaption>
+</p>
+
+<hr />
+
+<p><strong>Exercise 22: Dissecting Portuguese</strong></p>
+
+<p>     Consider the word <em>inacreditavelmente</em>. Can you find a portuguese word with
+more morphemes? If you do, let me know.</p>
+
+<hr />
+
+<h2 id="building-words">Building words</h2>
+
+<p>There are many different ways of building words from a word stem. Here
+are some of them:</p>
+
+<ul>
+  <li>Inflection: Doesn’t change the word class or the meaning of the word, considering the original stem. Examples are <em>eats</em> from <em>eat</em> (both verbs) and <em>gatas</em> from <em>gato</em> (both nouns).</li>
+  <li>Derivation: Results in a word from a different word class or with a different meaning. Examples are <em>do</em> from <em>undo</em> (opposite meanings) and <em>amigável</em> from <em>amigo</em> (adjective and noun).</li>
+  <li>Compounding: Combination of multiple word stems. <em>doghouse</em> and <em>guarda-chuva</em> are examples of this.</li>
+  <li>Cliticization: Words with clitics, such as <em>apagou-o</em>.</li>
+  <li>…</li>
+</ul>
+
+<p>     Just to show you how strange this can be, have the following example (for
+Hebrew), representing a case of <strong>Templatic</strong> morphology with triconsonantal
+stems:</p>
+
+<p>     Considering that <em>lmd</em> means to learn or study:</p>
+<ul>
+  <li>CaCaC triggers lamad (<em>he studied, …</em>)</li>
+  <li>CiCeC triggers limed (<em>he taught, …</em>)</li>
+  <li>CuCaC triggers lumad (<em>he was taught, …</em>)</li>
+</ul>
+
+<p>     Original, isn’t it?</p>
+
+<h2 id="part-of-speech-tagging">Part-of-speech tagging</h2>
+
+<p><strong>Part-of-speech tagging</strong> or <strong>POS tagging</strong> is the process of automatically
+assigning a morpho-syntactic tag to each word in a text. The main problem
+here is our darling friend ambiguity, but not because there are many ambiguous
+words. The problem is that these ambiguous words are extremely
+frequent in texts.</p>
+
+<p>     We will study three main approaches: a) Rule-based; b) Hybrid; c)
+Stochastic.</p>
+
+<h3 id="rule-based-approach">Rule-based approach</h3>
+
+<p>The rule-based approach uses hand-crafted rules to tag a text. Usually,
+there are two main steps:</p>
+<ol>
+  <li>With the help of a dictionary, you tag each word with all its possible labels;</li>
+  <li>With the help of a set of (disambiguation) rules, you disambiguate these labels.</li>
+</ol>
+
+<p>     As an example, consider the sentence <em>He had a book</em>. After the first step,
+you might have:</p>
+
+<ul>
+  <li>he he/pronoun</li>
+  <li>had have/verbpast have/auxliarypast</li>
+  <li>a a/article</li>
+  <li>book book/noun book/verb</li>
+</ul>
+
+<p>     If there is a rule that states that <em>if the previous word is an article, remove
+all the labels related with verbs</em>, after the application of this rule, we obtain:</p>
+
+<ul>
+  <li>he he/pronoun</li>
+  <li>had have/verbpast have/auxliarypast</li>
+  <li>a a/article</li>
+  <li>book book/noun</li>
+</ul>
+
+<p>An example of a rule-based tagger is the <a href="http://www2.lingsoft.fi/doc/engcg/intro/">EngCG tagger</a>. If you have
+time, give it a once-over.</p>
+
+<h3 id="transformation-based-pos-tagging">Transformation based POS tagging</h3>
+
+<p>The <strong>transformation based POS tagging</strong> is also known as <strong>Brill Tagging</strong>.
+It is also rule-based, but its rules are learned from a labeled corpus
+(that is why is said to be an hybrid approach). It takes the following steps:</p>
+
+<ul>
+  <li>Each word is tagged with the most frequent label;</li>
+  <li>Transformational rules are learned from a labeled corpus (rules that replace labels);</li>
+  <li>Transformational rules are applied until some stop condition is reached.</li>
+</ul>
+
+<p>For instance, assume that you know that:</p>
+
+<script type="math/tex; mode=display">P(\text{NN/race}) = 0.98</script>
+
+<script type="math/tex; mode=display">P(\text{VB/race}) = 0.02</script>
+
+<p>     Then, the sentence <em>He is expected to race tomorrow</em> will be labeled as:</p>
+<ul>
+  <li>he/PRN</li>
+  <li>is/VBZ</li>
+  <li>expected/VBN</li>
+  <li>to/TO</li>
+  <li>race/NN (not good!)</li>
+  <li>tomorrow/NN</li>
+</ul>
+
+<p>     If you have a rule that says that you should <em>Replace NN by VB when the
+previous label is TO</em>, the correct labelling will be attained.</p>
+
+<h3 id="stochastic-approach">Stochastic approach</h3>
+
+<p>The target here is to choose the best sequence of tags,</p>
+
+<script type="math/tex; mode=display">T = t_1, t_2, ..., t_n</script>
+
+<p>     for a certain sequence of words</p>
+
+<script type="math/tex; mode=display">W = w_1, w_2, ..., w_n</script>
+
+<p>     That is, we want to calculate <script type="math/tex">t \in \tau</script> that maximizes <script type="math/tex">P(T | W)</script>, being <script type="math/tex">\tau</script>
+the set of all possible tags’ sequences:</p>
+
+<script type="math/tex; mode=display">\arg\max_{t \in \tau} P(T|W)</script>
+
+<p>      As it is difficult to calculate 
+<script type="math/tex">P(T | W)</script>
+, we can use Bayes Rule:</p>
+
+<script type="math/tex; mode=display">P(x|y) = P(y|x) \frac{P(x)}{P(y)}</script>
+
+<p>     and as <script type="math/tex">P(W)</script> does not depend on <script type="math/tex">T</script>, our problem is now to calculate:</p>
+
+<script type="math/tex; mode=display">\arg\max_{t \in \tau} P(W|T) \times \frac{P(T)}{P(W)} \equiv \arg\max_{t \in \tau} P(W|T) \times P(T)</script>
+
+<p>Note that:</p>
+<ul>
+  <li><script type="math/tex">P(T)</script>
+ is the prior probability of the sequence of tags;</li>
+  <li><script type="math/tex">P(W | T)</script> 
+is the likelihood of W being given T.</li>
+</ul>
+
+<hr />
+
+<p><strong>Exercise 21: Why is posterior distribution hard to calculate?</strong></p>
+
+<p>     Think why it is more difficult to calculate 
+<script type="math/tex">P(T | W)</script>
+ than 
+ <script type="math/tex">P(W | T)</script>
+.</p>
+
+<hr />
+
+<h4 id="the-hidden-markov-models">The Hidden Markov Models</h4>
+
+<p>Unfortunately, the previous formula is still too difficult to calculate and
+the famous <strong>Hidden Markov Models (HMM)</strong> are called to save the day.
+These models assume that the system in hands can be modeled as a Markov
+Process (remember?) with non observable (hidden) states. Basically, they
+assume that:</p>
+
+<ul>
+  <li>The probability of occurrence of a word only depends on its label (that is, it doesn’t depend on other words);</li>
+  <li>The probability of a tag only depends on the previous tag (this is called the bigram assumption).</li>
+</ul>
+
+<p>Due to this, the following approximations can be done:</p>
+
+<div>
+  <a href="chap_5.html" style="float: left;">❮ Previous chapter</a>
+  <a href="chap_6.html" style="float: right;">Next chapter ❯</a>
+</div>
+
+<p><br /><br /></p>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p class="copyright">Natural Language Processing maintained by <a href="https://github.com/ricardorei">ricardorei</a></p>
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  </body>
+</html>

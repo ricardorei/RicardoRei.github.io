@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=c1bc36a44b0d5b98314a829ce68ef83944b9ada0">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=53c624b8164cda424b2d0ea15c9da50185e8b972">
 
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>Natural Language Processing | Readings &amp; materials for learning NLP from the ground up!</title>
@@ -51,6 +51,284 @@
 <blockquote>
   <p>Text by: <a href="authors.md">Luísa Coheur</a></p>
 </blockquote>
+
+<p>Until now we have not make use of any linguistic information and in this
+chapter… we won’t make it either. We will continue our NLP voyage just
+by counting stuff, and you will see the amazing things we can do with it.</p>
+
+<h2 id="n-grams-estimation-and-markov-assumption">N-grams estimation and Markov assumption</h2>
+
+<p>Although <strong>N-grams</strong> can be sequences of anything (characters, words, lemmas,
+etc.), in this section we will see N-grams as sequences of (N) words.
+Therefore, <strong>bigrams</strong> are sequences of two words, <strong>trigrams</strong> sequences of
+three words and so on (from now on, to impress your friends and family,
+start saying <strong>unigram</strong> instead of “word”). They can be very useful in several
+applications in NLP. In this section we will focus on word prediction
+and in calculating a sentence probability.</p>
+
+<h3 id="word-prediction">Word prediction</h3>
+
+<p>Can you predict the next word of the following sequences?</p>
+<ol>
+  <li>Once upon a. ..</li>
+  <li>Luke im your …</li>
+  <li>Vai…</li>
+  <li>Bom…</li>
+  <li>And now for something…</li>
+</ol>
+
+<p>     What about this?</p>
+<ol>
+  <li>Once upon a time.</li>
+  <li>Luke im your father.</li>
+  <li>Vai chover.</li>
+  <li>Bombóca</li>
+  <li>And now for something completely different.</li>
+</ol>
+
+<p>     Now imagine that you want to implement an application that predicts
+words. Word predictors can be done with N-grams. Let <script type="math/tex">w_1, ..., w_{n-1}</script> be a
+sequence of words (as a notational alternative we will use w_1^{n-1}). If you
+want to predict the next word, <script type="math/tex">w_n</script>, you should try to find the word with
+the highest probability of following the given sequence. Therefore, our goal
+is to compute the probability of a word <script type="math/tex">W</script> (<script type="math/tex">= w_n</script>), given some history <script type="math/tex">H = w_1, ..., w_{n-1}</script>). 
+That is, we want to calculate <script type="math/tex">P(W | H)</script>. Let us see how to do this.</p>
+
+<p>     As a first hypothesis, let us suppose we have at our disposal a gigantic
+corpus with all the sequences in Portuguese (for instance). Let us count
+all the observations of the sequence <script type="math/tex">HW</script> as well as all the occurrences of
+the sequence <script type="math/tex">H</script> alone. In this way we can calculate <script type="math/tex">P(W | H)</script>:</p>
+
+<script type="math/tex; mode=display">P(w | h) = \frac{count(HW)}{\sum_K count(HK)} = \frac{count(HW)}{count(H)}</script>
+
+<p>     As an example, consider that we have:</p>
+<ul>
+  <li>H = Once upon a</li>
+  <li>W = time</li>
+</ul>
+
+<p>     In order to calculate <script type="math/tex">P(\text{time} | \text{Once upon a})</script>, we have to divide the
+number of occurrences of <em>Once upon a time</em>, by <em>Once upon a</em>.</p>
+
+<p>     The problem with this formula is the assumption that “we have at our
+disposal a gigantic corpus with all the possible sequences in Portuguese”. Such thing
+is like Santa Claus: it simply does not exists (Please, tell me you knew this.). 
+Not even Google has a corpus with all the possible sequences in any language (you certainly have already
+asked Google for a certain sequence, between commas, and no result was
+found). Ya, sometimes not even the web is big enough to find a certain
+sequence of words. So, let us envisage another way of calculating <script type="math/tex">P(W|H)</script>.</p>
+
+<p>     As you will see, it is not perfect, and, due to that, it perfectly illustrates
+something that I want you to learn from this course (if you haven’t learnt
+it yet). In many scientific fields, models are used in order to explain a
+certain phenomena. Here, in NLP, we use many models that we know
+that are not perfect to explain a certain phenomenon, but sometimes are
+the only <strong>models that respect the commitment between explaining
+(most of) the phenomenon in hand and being computationally
+tractable</strong>. That is, sometimes we have to adapt ourselves to what we have
+at our disposal and live with that (notice that this is valid in science and
+also in general life).</p>
+
+<p>     Now is time to remember what a <strong>Markov model</strong> is and what states
+the <strong>Markov assumption</strong>. Markov models represent a class of probabilistic
+models that assume that we can predict the probability of some future event
+without having to look to far in the past; the Markov assumption states that
+the probability of a word depends only on the immediately previous ones.
+Thus, in order to compute the probability of a word given an history, <script type="math/tex">P(W |
+H)</script>, we will approximate (as I told you) the history by using only the last
+words. And if we consider the last word, we will be talking about bigrams,
+if we consider the two previous words, trigrams, and so on. That is:</p>
+
+<ul>
+  <li>bigram: 
+<script type="math/tex">P(W | H) = P(w_n | w_1, w_2, ..., w_{n-1}) \cong P(w_n | w_{n-1})</script></li>
+  <li>trigram: 
+<script type="math/tex">P(W | H) = P(w_n | w_1, w_2, ..., w_{n-1}) \cong P(w_n |  w_{n-2}, w_{n-1})</script></li>
+  <li>…</li>
+</ul>
+
+<hr />
+<p><strong>Exercise 16: Using bigrams</strong></p>
+
+<p>     Consider the following corpus, where &lt;s&gt; represents the beginning of the
+sentence and &lt;/s&gt; its end (we assume no normalisation):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;s&gt;</span>Eu adoro a Maria<span class="nt">&lt;/s&gt;</span>
+<span class="nt">&lt;s&gt;</span>A Maria eu adoro<span class="nt">&lt;/s&gt;</span>
+<span class="nt">&lt;s&gt;</span>Eu adoro bolachas Maria<span class="nt">&lt;/s&gt;</span>
+</code></pre></div></div>
+<p>…</p>
+
+<hr />
+
+<h3 id="calculating-a-sentence-probability">Calculating a sentence probability</h3>
+
+<p>So, we have learnt to estimate the probability of occurrence of a word after
+a given sequence. And if now we want to know how probable is a sentence?
+Again, as a first hypothesis, we could calculate the probability of sentence
+<script type="math/tex">w_1^{n-1}</script> by using the <strong>chain rule of probability:</strong></p>
+
+<script type="math/tex; mode=display">P(w_1^{n-1}) = P(w_1) \times P(w_2|w_1) \times ... \times P(w_n|w_1^{n-1}) = \prod_{k=1}^n P(w_k|w_1^{k-1})</script>
+
+<p>     Nevertheless, we have here the same problem that we had before: we
+probably won’t be able to calculate stuff like <script type="math/tex">P(w_n|w_1^{n-1})</script>, because <script type="math/tex">count(w_1^n)</script> or <script type="math/tex">count(w_1^{n-1})</script> 
+(for instance) never occurred. Once again we will use the
+Markov assumption and, once again, we can use bigrams, trigrams, etc. to
+produce the following estimations:</p>
+
+<ul>
+  <li>bigram: 
+<script type="math/tex">P(w_1^n) \cong \prod_{k=1}^n P(w_k | w_{k-1})</script></li>
+  <li>trigram: 
+<script type="math/tex">P(w_1^n) \cong \prod_{k=1}^n P(w_k | w_{k-2}, w_{k-1})</script></li>
+  <li>…</li>
+</ul>
+
+<hr />
+
+<p><strong>Exercise 17: Most probable sentence in Portuguese</strong></p>
+
+<p>     Consider unigrams. Which is the most probable sentence in Portuguese,
+with 4 words.</p>
+
+<hr />
+
+<hr />
+
+<p><strong>Exercise 18: Chinese restaurant</strong></p>
+
+<p>     Make (with lots of enthusiasm) the exercise your professor will provide you.</p>
+
+<hr />
+
+<h2 id="so-how-far-can-we-go-with-n-grams">So, how far can we go with N-grams?</h2>
+
+<p>N-grams are certainly extremely helpful in many NLP areas, such as Statistical
+Machine Translation (SMT), Spell Correction or Speech Recognition.
+In SMT, for instance, two types of models are used:</p>
+
+<ul>
+  <li>a Translation Model that is responsible for the semantics of the translation;</li>
+  <li>a Language Model, which takes care of the fluency of translations.</li>
+</ul>
+
+<p>     In SMT (and in many other applications) N-grams can be used to build
+the Language Model. As an example, consider that you receive the following
+sentences as translation candidates of the sentence <em>Estou cansado</em>:</p>
+
+<ul>
+  <li>I’m exhausted.</li>
+  <li>Tired me.</li>
+  <li>I like superman.</li>
+</ul>
+
+<p>     The Translation Model should give more points to the second sentence
+which is the one that better captures the meaning of the original sentence;
+the Language Model will score higher the first and third sentences as these
+are more fluent in English. An accurate combination of both models is
+essential to reach a good translation engine.</p>
+
+<p>     However, there are some drawbacks in this. In the following we will study
+a measure that allows you to make a preliminary evaluation of how N-grams
+will fit in your data, and we will briefly talk about the major problems when
+using N-grams.</p>
+
+<h3 id="evaluating-n-grams-perplexity">Evaluating N-grams: perplexity</h3>
+
+<p><strong>Perplexity</strong> is an evaluation metric for N-grams. The idea is the following:
+you calculate two probabilistic models (for instance, bigrams and trigrams)
+and then you use perplexity to see which one is the better model, that is,
+which one has a tighter fit to a corpus or, in other words, which one will make
+the corpus more probable. If a model is good it will give high probability to
+probable sentences and a low one to “aberrant” ones.</p>
+
+<p>     So imagine that you have calculated the N-grams of your model (bigrams,
+trigrams, etc.). Then, considering that your corpus is <script type="math/tex">W = w_1^n</script>, perplexity
+is given by:</p>
+
+<script type="math/tex; mode=display">PP(W) = \sqrt[n] \frac{1}{P(w_1^n)}</script>
+
+<p>     Remember that the calculus of <script type="math/tex">P(w_1^n)</script> is dependent of the language
+model that you are using (based in bigrams, trigrams, etc.). The lowest the
+perplexity, the best the model is (being less perplexed is better).
+Some years ago, several of your colleagues did a project based on this
+concept. The idea was to compare several Portuguese writers in what respects
+the N-grams they use in their work. Although it is widely accepted
+that perplexity is not the best measure to compare literature, some interesting
+results were attained.</p>
+
+<h3 id="main-problems">Main problems</h3>
+<p>One of the major drawbacks with N-grams is that they don’t deal with
+long distance dependencies. For instance, the sequence <em>Gollum loves his
+precious</em> could be a frequent 4-gram, but if only sentences such as <em>Gollum
+loves in a very sick way his precious</em> are found in the text, that 4-gram will
+never be captured.</p>
+
+<p>     On the other hand, N-grams, as you can imagine are very dependent of
+the corpus where you did your training. Typically, best results are obtained
+by increasing the values of N, although higher values of N increase the number
+of possible N-grams and the resulting tables are each time more sparse
+(the data sparseness problem is common in many NLP applications).</p>
+
+<p>     Also, you have probably noticed that if an N-gram does not exists because
+it was never found in the training corpus, it will case problems if it is
+needed during test, because the associated probability will be 0. A similar
+problem arises if an N-gram is extremely unfrequent. There are many techniques
+in the literature – the <strong>smoothing techniques</strong> – that deal with this
+problem. In this section we will talk very briefly about a few of them. However,
+you should understand the main problem: you steal some probability
+mass from observable things to given them to non observable events (yes,
+like Robin Hood did); thus, you have to recalculate the whole stuff again,
+because we are talking about probabilities (their values should be between
+0 and 1).</p>
+
+<p>Let us start with the <strong>Laplace Smoothing</strong> or <strong>Add-one Smoothing</strong>.
+The value one is added to all frequency counts, that is, we pretend that we
+saw each word one more time than we actually did. That is, being V the
+vocabulary size (number of the set of tokens), we have, for bigrams:</p>
+
+<script type="math/tex; mode=display">P_{\text{Laplace}}(w_n|w_{n-1}) = \frac{count(w_{n-1} w_n) + 1}{V + count(w_{n-1})}</script>
+
+<hr />
+
+<p><strong>Exercise 19: Add-one Smoothing</strong></p>
+
+<p>     See what happens when you use Add-one Smoothing in the exercise your
+teacher will propose you.</p>
+
+<hr />
+
+<p>Another technique is the <strong>Good-Turing discounting</strong> where the
+counts of what was observed once is used to estimate the counts of what
+was never seen (other techniques implement this idea).</p>
+
+<hr />
+
+<p><strong>Exercise 20: Good-Turing discounting</strong></p>
+
+<p>Check with your professor the probability of having lulas for lunch tomorrow.</p>
+
+<hr />
+
+<p>We can also count with Interpolation, which is a technique that combines
+N-grams from different orders to estimate the probability of an N-gram
+with 0 frequency, as follows:</p>
+
+<script type="math/tex; mode=display">\hat{P}(w_n|w_{n-2} w_{n-1}) = \lambda_1 P(w_n|w_{n-2} w_{n-1}) + \lambda_2 P(w_n|w_{n-1}) + \lambda_3 P(w_n)</script>
+
+<p>In this cases, the training corpus is used to calculate the N-grams and a
+development set should be used to calculate each <script type="math/tex">\lambda_i</script>.</p>
+
+<p>Finally, there are also the so called <strong>backoff</strong> techniques where you move
+to lower order N-grams to estimate the probability of an N-gram with 0
+frequency.</p>
+
+<div>
+  <a href="chap_4.html" style="float: left;">❮ Previous chapter</a>
+  <a href="chap_6.html" style="float: right;">Next chapter ❯</a>
+</div>
+
+<p><br /><br /></p>
 
       </section>
     </div>

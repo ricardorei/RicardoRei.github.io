@@ -60,6 +60,7 @@ sell them (see for instance the European Language Resources Association
 many researchers have been using the [Mechanical Turk](https://www.mturk.com/) and many people
 from the NLP community are using "Requesters" to create several types of
 corpora.
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nevertheless, it might happen that you will have to build your own
 corpora for your experiments (at least for testing your application). If so,
 take some time to think how you will do it and don’t neglect this task, as
@@ -254,7 +255,7 @@ and recall (usually we set $$\beta$$ = 1 (F1)):
 
 $$\text{F}_{\beta} = \frac{(\beta^2 +1) \times \text{Precision} \times \text{Recall}}{\beta^2 \times \text{Precision} + \text{Recall}}$$
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lets imagine that we have developed a search engine to answer queries in natural language about fruits and vegetables. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lets imagine that we have developed a search engine about fruits and vegetables. 
 The knowledge-base of our engine only contains information about the following fruits/vegetables:
 - Watermellons, Bell Peppers, Large Tomatos, Pomegranates, Bananas, Green Apples, Red Apples, Large Red Apples, Fuji Apples, Yellow Apples, Lemons, Kiwis and Raisins
 

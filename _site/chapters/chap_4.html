@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=c1bc36a44b0d5b98314a829ce68ef83944b9ada0">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=53c624b8164cda424b2d0ea15c9da50185e8b972">
 
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>Natural Language Processing | Readings &amp; materials for learning NLP from the ground up!</title>
@@ -46,11 +46,486 @@
   <li><a href="/">Home</a></li>
 </ul>
 
+<p align="center">
+<iframe width="350" height="197" src="https://www.youtube.com/embed/PTsSk0r_Tq8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</p>
+<blockquote>
+  <p>As we will see its not just for F.R. David that words don’t come easy…</p>
+</blockquote>
+
 <h1 id="words-dont-come-easy">Words don’t come easy</h1>
 
 <blockquote>
   <p>Text by: <a href="authors.md">Luísa Coheur</a></p>
 </blockquote>
+
+<p>In this chapter we will study words. As we will see, not even its definition
+is so obvious as it might seems. You will learn what we do to words in
+NLP and believe me, we are not nice with the poor words: we cut them in
+little pieces, we analyze the little pieces, we compare the little pieces, we
+play with their sounds and, sometimes, we simply eliminate words, with no
+mercy (Muahahahaha!).</p>
+
+<h2 id="the-meaning-of-the-word-word">The meaning of the word “word”</h2>
+
+<p>What does the word “word” means? Well, consider the following sentence:</p>
+
+<p>     <em>Na Sexta-feira hei-de ir a Viana do Castelo a pé.</em></p>
+
+<p>How many words are there in this sentence? You probably counted 10.
+Hum…</p>
+
+<ul>
+  <li><em>Na</em> is a contraction (preposition <em>em</em> plus article <em>a</em>). Should we count one or two words?</li>
+  <li><em>Sexta-feira</em> seems to be a word, but somebody may argue that <em>sexta</em> and <em>feira</em> are also words, right?</li>
+  <li>With the new orthography <em>hei-de</em> becomes <em>hei de</em>. Thus, <em>hei de</em> represents two words and <em>hei-de</em> a single word. So…</li>
+  <li>Shouldn’t <em>Viana do Castelo</em> be counted as a single word as its meaning depends on the three words altogether?</li>
+  <li>What about the two occurrences of the word <em>a</em>? Do they represent the same word or there is some subtle difference between them? Should we count it once or twice?</li>
+</ul>
+
+<p>According to Priberam’s dictionary, a word, in computer science, is defined
+as: <em>Elemento de informação armazenado ou tratado sem interrupção
+num computador</em> they also define word as a term. What do they mean
+when they say <em>sem interrupção</em>? And what does <em>term</em> exactly mean?</p>
+
+<p>     I was never able to find a consensual definition of word. The previous
+definitions probably match what many people have in mind. However, for
+people working in NLP the concept depends on the application and, thus,
+we consider that something is a word (or not) if this helps our work.</p>
+
+<h2 id="tokenization">Tokenization</h2>
+
+<p>Tokenization (or word segmentation) is the (not so trivial) process of
+identifying tokens in a text. Considering what you have previously seen,
+this process will depend on what you call “a word”. Therefore, the first
+thing to do is to decide which sequences of words should be considered as a
+single one. Then, punctuation is on your way and you will have to deal with
+that… Do you think you can properly handle tokenization? Well… maybe
+you can, if you consider the Portuguese language. However, remember that
+many other languages exist and that some have specificities that can turn
+tokenization into a really challenge (not to say nightmare). In the following
+you will understand what I mean.</p>
+
+<h3 id="compounds">Compounds</h3>
+
+<p>As previously stated, it might be important to treat all the compound
+terms, like <em>Viana do Castelo</em>, as single words (it is obvious that the unity
+of meaning is, in this case, the city <em>Viana do Castelo</em>). You might be tempted
+to think that only proper nouns (such as <em>Joana Martins</em>, <em>Rua de Campolide</em>
+or <em>Instituto Superior Técnico</em>) are in this situation, and that these are easy
+to identify (first mistake!), but you are wrong: more than proper names can
+be included in this process. For instance, what about <em>chapéu de chuva</em> that
+is no longer written with the hyphen? Or <em>rampa para deficientes</em>?</p>
+
+<p>     Once again, depending on your application, it can be useful to group
+some sequences of nouns that linguists would not even call compounds. In
+some cases, you can build a lexicon containing these words, which will help
+your task. However, even in restricted domains some automatization is
+(probably) needed to generate the different/alternative forms of the words
+in the compounds. Nevertheless, as some of the words in these sequences
+can be expanded and others can’t (as an example, we can say <em>chapéus de
+chuva</em>, but not <em>chapéus de chuvas</em>; you can also say <em>rampa para deficientes</em>
+or <em>rampa de deficientes</em>), the task of building patterns to automatically
+generate all the associated forms is also complicated.</p>
+
+<p>     So, in conclusion, depending on the application, you might decide to
+group compounds as a single unit of meaning or not. It might be really helpful to group them before 
+moving to a posterior analysis, but it can be complex to do it.</p>
+
+<h3 id="punctuation">Punctuation</h3>
+
+<p>And what about punctuation? Punctuation can bring several problems to
+the tokenization process. If question marks, for instance, do not cause many
+troubles in word identification, a period might be a problem. Consider, for
+instance, <em>Sr.</em>, <em>55.5</em> and <em>www.google.com</em>. These terms contain periods and
+we have to tell, somehow, to the tokenizer that their dots do not represent
+the end of a sentence. Notice that if we can (more or less) easily build a
+list with a set of fixed words such as <em>Sr.</em>, to be able to capture numbers or
+URLs you will probably need to use our beloved regular expressions. Notice
+also that some of these lists are language dependent.</p>
+
+<h3 id="other-scenarios">Other scenarios</h3>
+<p>You know English, maybe French and Spanish, but even if you know German,
+you can’t say that you have the “whole picture”. This is because there
+are languages with some particularities that never crossed our minds and
+that can transform tokenization (and other NLP tasks) in a very complicated
+process. A good example is Chinese, as their sentences are sequences
+of characters without spaces between words (if this also happened in English,
+do you think <em>nowherefast</em> would mean <em>nowhere fast</em> or <em>now here fast</em>?). Just
+to give an idea of how challenging this can be, there are competitions where
+systems try to find the best way to tokenize Chinese. Apparently, a simple
+algorithm that analyzes the input left-to-right and consults a dictionary
+trying to find the longest meaningful sequences of characters can bring good
+results.</p>
+
+<p>     A synonym for complicated tokenization is agglutinative languages (such
+as Turkish and Russian). In these languages, words are formed by joining
+morphemes together, without fusing them. Almost every language have
+some words formed in this way, but for some this is the rule, not the exception.
+We will talk about this in some weeks and you will see how Portuguese
+is so… simple. :-)</p>
+
+<h2 id="words-manipulation">Word’s manipulation</h2>
+
+<p>After having identified our words in a text, there are many things we can
+do to them that will help us in further processing.</p>
+
+<h3 id="elimination">Elimination</h3>
+<p>Some words are not very informative for the task in hands, and their presence
+only represents more rules and/or more processing. Thus, the first thing we
+can do is to get rid of them. A good example is the sequence <em>é que</em> in some
+Portuguese questions such as <em>Onde é quefica o bar?</em> , <em>Quanto é que ganha
+o Cristiano Ronaldo?</em>, <em>Quando é que chegaste?</em>. In all these sentences the
+<em>é que</em> can be eliminated without causing any interpretation problem: Onde
+fica o bar?, Quanto ganha o Cristiano Ronaldo?, Quando chegaste?.</p>
+
+<p>     In many applications people get rid of what we call stop words, which
+usually include functional words (prepositions, articles, etc.). Although stop
+words are language dependent, it is not very difficult to find lists of stop
+words for different languages in the web. In many cases to get rid of stop
+words is a good decision, but there are scenarios such as authorship identification
+where these words can be extremely important.</p>
+
+<hr />
+
+<p><strong>Exercise 9: Stop words</strong></p>
+
+<p>     See if you can identify any of your friends by paying attention to their use
+of some specific words. Check if these are stop words or not.</p>
+
+<hr />
+
+<h3 id="lowercasing">Lowercasing</h3>
+
+<p>Another thing that can be very useful is to lowercase your data. This would
+allow <em>Comi</em> and <em>comi</em> from the sentence <em>Comi sopa</em> e <em>comi muito bem</em> to
+be treated as the same word. However, not everything rules for 100% in
+NLP and this can be a very bad idea in some applications. For instance, if
+you lowercase your text and you want to translated us, you don’t know if
+you should translate the proper noun <em>US</em> or the pronoun <em>us</em>. The same for
+the words <em>Figo</em> (the <a href="https://en.wikipedia.org/wiki/Lu%C3%ADs_Figo">footballer</a>) and <em>figo</em> (the fruit). 
+Note, nevertheless, that in order to avoid data sparseness, it still can be important to lowercase your data.</p>
+
+<p align="center">
+<img align="center" src="../images/lowercasing.png" /> 
+</p>
+
+<hr />
+
+<p><strong>Exercise 10: Lowercasing</strong></p>
+
+<p>     Think about a word that has two different meanings whether it starts with
+a capital letter or not. Check Google results with the two hypotheses.</p>
+
+<hr />
+
+<h3 id="normalization">Normalization</h3>
+
+<p>Lowercasing can be seen as a normalization process, but many more normalization
+processes exist. For instance, you may want to normalize dates
+(<em>April 4, 2019</em> vs. <em>04-04-2019</em>), numbers (<em>0.34</em> vs. <em>0,34</em> or <em>2000 m</em> vs. <em>2
+Km</em>) and names (<em>John Fitzgerald Kennedy</em> vs. <em>John F. Kennedy</em> vs. <em>John
+Kennedy</em>). If you think about a QA system that uses the most frequent answer as the correct one, 
+it seems obvious the need to perform this normalization step.</p>
+
+<hr />
+
+<p><strong>Exercise 11: Normalization</strong></p>
+
+<p>     Why is so important for a QA system that is based in the redundancy of
+the attained possible answers to have these answers normalized?</p>
+
+<hr />
+
+<h3 id="stemming-and-lemmatization">Stemming and lemmatization</h3>
+
+<p><em>Stemming and lemmatization</em>, although representing different concepts,
+are used as synonyms in many situations (the main difference is that stemming
+is normally associated with the idea of reducing a word and lemmatization
+can also add stuff to it)<span id="a1"><a href="#f1">[1]</a></span>. Let us consider in this course that they
+represent the same idea: transform words in a way that if they represent
+the same meaning they are captured by the same token. For instance, <em>assassinou</em>,
+<em>assassino</em> and <em>assassinado</em> could be stemmed/lemmatized in the form <em>assassin</em>.</p>
+
+<p>     This process is very useful in many applications, as it not also helps
+with the data sparseness problem, but it also allows the connection of words
+that, otherwise, would be left unrelated. For instance, if you type <em>assassino
+D. Carlos</em> in a search engine, a possible result in the sentence <em>D. Carlos
+foi assassinado por Buiça</em> can be found due to the stemming of the words
+<em>assassino</em> and <em>assassinado</em>.</p>
+
+<p>     Notice, however, that if you are searching for a <em>table</em> in Google, either
+if you type <em>table</em> or <em>tables</em> you will probably get similar results, but (and
+considering the perfect example presented by Jurafsky in his courses) if you
+are searching for a <em>new window</em>, if you write <em>window</em> or <em>windows</em> you will
+not obtain similar results and, in the last case, you will (probably) never
+find a new window.</p>
+
+<p>     A very well known stemmer is the Porter Stemmer, developed in 1979.
+It is rule-based and language dependent and might transform organization
+in organ, but has been used very successfully in many applications. If you
+have some time, give it a look (you can easily find many implementations
+in the web).</p>
+
+<hr />
+
+<p><em>Exercise 12: Stemmer</em>
+     Think about a word that has two different meanings whether it ends with
+an “s” or not. Check Google results with the two hypotheses.</p>
+
+<hr />
+
+<h2 id="comparing-words">Comparing words</h2>
+
+<p>There are many applications where we have to compare words, as for instance
+to correct an unknown word. You can compare words taking into
+consideration their orthographic form (<em>Monserate</em> vs. <em>Monserrate</em>), but you
+can also check the way they sound (<em>Monserrate</em> vs. Munçerráte). In this
+section we will learn about some measures that allow us to compare words.
+We will see that these measures can also be adapted to compare sentences
+and, without using any linguistic information, you will learn how to build a
+very simple form of a “semantic analyser”.</p>
+
+<h3 id="comparing-strings">Comparing strings</h3>
+
+<p>Algorithm 1 calculates the <strong>Minimum Edit Distance (MED)</strong> between two
+words, that is, the minimum number of transformations (insert, replace
+and delete) that need to be done in order to transform one of the words into
+the other. It builds a matrix and fills its cells with the cost associated with
+the needed transformations, taking into consideration the substrings of the
+words being processed (yes, <strong>dynamic programming</strong>). The cost associated
+with each one of the three possible transformations is given by C1 (delete in
+the source), C2 (insert in the source) and C3 (replace in the source). When
+C3 = 2, then we have the widely known <strong><a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein distance</a></strong>.
+These measures can be customised to different applications. For instance, they can
+be adapted to take into consideration the device in use: if we are using a
+QWERTY keyboard to write the words, it is more probable to replace a “w”
+by a “q” than a “w” by a “l”.</p>
+
+<p align="center">
+<img align="center" src="../images/MED_alg.png" width="625" height="600" /> 
+</p>
+
+<hr />
+
+<p><em>Exercise 13: Minimum Edit Distance</em></p>
+
+<p>     Find the MED between the words <em>batalha</em> and <em>barata</em>. Create the matrix, fill
+it and don’t forget to precisely identify the MED. Also, identify the transformations
+and relate them with the matrix values.</p>
+
+<hr />
+
+<p>     These measures can also be used to calculate the distance between sentences
+(and not only words). For instance, consider an application that
+knows how to answer to <em>Onde foi assassinado D. Carlos?</em>. If the user states
+a new question as <em>Onde é que foi assassinado D. Carlos?</em>, it “only” has a
+MED of 2 from the original sentence. Thus, edit distances can be applied to
+this scenario as if a given sentence has a small difference from some sentence
+that the system knowns how to answer, maybe it can be considered similar
+to it and answered in the same way. Nevertheless, it might be necessary to
+use measures that do not take the order of words into consideration in such
+a strong way as MED does, so that <em>D. Carlos foi assassinado onde?</em> would
+also be considered similar to <em>Onde foi assassinado D. Carlos?</em>. Although
+the order of words in a sentence can be very important (<em>Quem é filho de
+XPTO?</em> vs. <em>XPTO é filho de quem?</em> or <em>anos 80</em> vs. <em>80 anos</em>), a measure
+that do not penalise so strongly some reordering could be welcome in this
+scenario. So, if the MED takes the order of the characters into consideration,
+the following measures don’t, as they treat sequences as sets or bags.
+This lead us to the concept of <strong>bag of words</strong>, a model widely used in NLP
+and Information Retrieval, in which sentences (and documents) are seen as
+a bag (not a set) of words. Grammar is ignored, as well as word order.
+However, word multiplicity is kept.</p>
+
+<p>     Jaccard (Equation bellow) obtains higher scores for strings that have similar
+length (a zero value means that there is nothing in common between two
+words; one is the highest possible value).</p>
+
+<script type="math/tex; mode=display">\textit{Jaccard} (s, t) = \frac{|s \cap t|}{|s \cap t|}</script>
+
+<p>     A different philosophy is used in the Dice measure, in which strings with
+different lengths are not so strongly penalized:</p>
+
+<script type="math/tex; mode=display">\textit{Dice} (s, t) = 2 \times \frac{|s \cap t|}{|s| + |t|}</script>
+
+<hr />
+
+<p><em>Exercise 14: Jaccard and Dice</em></p>
+
+<p>     Consider the words s=<em>Saturday</em>, t=<em>Sunday</em> and w=<em>day</em>. Considering the set
+approach, calculate:</p>
+<ul>
+  <li>Jaccard(s, t)</li>
+  <li>Jaccard(s, w)</li>
+  <li>Dice(s, t)</li>
+  <li>Dice(s, w)</li>
+</ul>
+
+<hr />
+
+<p>     Many more distances exist, tailored for different applications. However,
+another measure that should be mentioned, although is not used to compare
+strings, is the widely known <strong>term frequency–inverse document
+frequency (tf–idf)</strong>. This measure calculates how important a word is in
+a document from a document collection, and is used, for instance, in <strong>Edgar</strong>
+to give weights to the words in the sentences we are comparing (by using
+the traditional measures). The motivation for this is that there are words
+occurring in each sentence that are also very frequent in many other sentences
+and that, thus, should not contribute to the comparison process with
+the same weight as words that are more specific to some questions.</p>
+
+<p>     There are many ways to calculate <script type="math/tex">tf(t, d)</script>. The simplest one is by counting
+the number of occurrences of term <script type="math/tex">t</script> in the document <script type="math/tex">d</script>. The formula
+used to calculate <script type="math/tex">idf</script> is given by:</p>
+
+<script type="math/tex; mode=display">idf(t, D) = log \frac{|D|}{|\{d \in D: t \in d\}|}</script>
+
+<p>and finally the <script type="math/tex">tf-idf</script> values are given by:</p>
+
+<script type="math/tex; mode=display">tf-idf(t,d,D) = tf(t, d) \times idf(t, D)</script>
+
+<h5 id="tf-idf-example">TF-IDF example</h5>
+<p>Consider the following corpus with only 2 sentences:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> d1 = The dog is on the table
+ d2 = The cat is on the table
+</code></pre></div></div>
+
+<p>Given that corpus we can define a bag-of-words with the following words/terms: “the”, “cat”, “dog”, “is”, “on”, “table”.</p>
+
+<p>After defining the terms, we represent the sentence <em>“the dog is on the table”</em> in a tf-idf space as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: center">the</th>
+      <th style="text-align: center">cat</th>
+      <th style="text-align: center">dog</th>
+      <th style="text-align: center">is</th>
+      <th style="text-align: center">on</th>
+      <th style="text-align: center">table</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><script type="math/tex">|\{d \in D: t \in d\}|</script></td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">2</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: center">the</th>
+      <th style="text-align: center">cat</th>
+      <th style="text-align: center">dog</th>
+      <th style="text-align: center">is</th>
+      <th style="text-align: center">on</th>
+      <th style="text-align: center">table</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><script type="math/tex">tf(t, d1)</script></td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Finally:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: center">the</th>
+      <th style="text-align: center">cat</th>
+      <th style="text-align: center">dog</th>
+      <th style="text-align: center">is</th>
+      <th style="text-align: center">on</th>
+      <th style="text-align: center">table</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><script type="math/tex">tf-idf(t, d1)</script></td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center"><script type="math/tex">1 \times \log{\frac{2}{1}} = 0.301</script></td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="soundex">Soundex</h3>
+
+<p>Besides comparing words by its characters, they can also be compared by
+the way they sound. <a href="https://en.wikipedia.org/wiki/Soundex">Soundex</a> (Russell, 1922) is a phonetic algorithm that
+allows to compare words by sound. It was written to be used for words
+pronounced in English. Its earlier applications targeted names’ indexing.
+For instance, consider the word Jurafsky. Imagine that his name is coded
+somehow in order to capture the way it sounds. If you are trying to find
+his book but you don’t know how to spell his name, if you manage to write
+something that is also mapped into the same key (representing the way it
+sounds), then you may find it.
+     The following tries to capture the essence of Soundex:</p>
+
+<ol>
+  <li>Retain the first letter of the name;</li>
+  <li>Drop all occurrences of a, e, i, o, u, y, h, w (unless they appear in the first position).</li>
+  <li>Replace consonants by digits, as follows (after the first letter):
+    <ul>
+      <li>b, f, p, v → 1</li>
+      <li>c, g, j, k, q, s, x, z → 2</li>
+      <li>d, t → 3</li>
+      <li>l → 4</li>
+      <li>m, n → 5</li>
+      <li>r → 6</li>
+    </ul>
+  </li>
+  <li>Two adjacent letters with the same number are coded as a single number (ex: 55 → 5)</li>
+  <li>Continue until you have one letter and three numbers. If you run out of numbers,  add zeros until there are three numbers (ex: L2 → L200); if you have too much numbers drop them after the third one (ex: L2345 → L234).</li>
+</ol>
+
+<hr />
+
+<p><strong>Exercise 15: Soundex</strong></p>
+
+<p>     Find your name in soundex-form. Mine is L200 C600. You can call me that
+from now on.</p>
+
+<hr />
+
+<h2 id="in-practice-meet-filipe-a-conversational-agent-based-on-edit-distances">In practice: meet Filipe, a conversational agent based on edit distances</h2>
+
+<p>Please read the paper <a href="http://www.inesc-id.pt/publications/10328/pdf">“Please, read the paper “Using subtitles to deal with Out-of-Domain interactions”</a>. This paper will allow you to understand how some of the present measures can be used to build a conversational agent.</p>
+
+<h3 id="footnotes">Footnotes</h3>
+<ol>
+  <li><span id="f1"></span> See <a href="http://www.ideaeng.com/stemming-lemmatization-0601">http://www.ideaeng.com/stemming-lemmatization-0601</a> for a long discussion in “What’s the Difference Between Stemming and Lemmatization?” <a href="#a1">&gt;</a></li>
+</ol>
+
+<div>
+  <a href="chap_3.html" style="float: left;">❮ Previous chapter</a>
+  <a href="chap_5.html" style="float: right;">Next chapter ❯</a>
+</div>
+
+<p><br /><br /></p>
 
       </section>
     </div>
