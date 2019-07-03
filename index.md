@@ -25,13 +25,13 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 
 
 ## Chapters:
-1. [Chapter 1 - What? Why? Who? Where?](chapters/chap_1.md)
-2. [Chapter 2 - Methodology, corpora and evaluation](chapters/chap_2.md)
-3. [Chapter 3 - Regular Expressions](chapters/chap_3.md)
-4. [Chapter 4 - Words don’t come easy](chapters/chap_4.md)
-5. [Chapter 5 - N-grams](chapters/chap_5.md)
-5. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md)
-5. [Chapter 7 - Syntax important Natural very Language is](chapters/chap_7.md)
+1. [Chapter 1 - What? Why? Who? Where?](chapters/chap_1.md) - by [Luísa Coheur](authors.md)
+2. [Chapter 2 - Methodology, corpora and evaluation](chapters/chap_2.md) - by [Luísa Coheur](authors.md)
+3. [Chapter 3 - Regular Expressions](chapters/chap_3.md) - by [Luísa Coheur](authors.md)
+4. [Chapter 4 - Words don’t come easy](chapters/chap_4.md) - by [Luísa Coheur](authors.md)
+5. [Chapter 5 - N-grams](chapters/chap_5.md) - by [Luísa Coheur](authors.md)
+5. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md) - by [Luísa Coheur](authors.md)
+5. [Chapter 7 - Syntax important Natural very Language is](chapters/chap_7.md) - by [Luísa Coheur](authors.md)
 
 
 ## Editors:
