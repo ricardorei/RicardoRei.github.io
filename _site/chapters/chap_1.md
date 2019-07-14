@@ -21,10 +21,10 @@ already available!
 
 ## Why is it so diffcult to deal with Natural Language?
 
-NLs are definitely difficult to deal with, some being more complicated than others. For instance, Portuguese possesses much more specific verb tenses than English does, and, thus, the conjugation of verbs is more complex. The existence of *agreement between words* is also a source of problems in many languages. For instance, in Portuguese, nouns and adjectives have to agree, which is not the case in English. In German, besides the _Masculine_ and _Feminine_, there is also the gender _Neuter_. As we will see throughout this course, there are NL with very strange rules.
+NLs are definitely difficult to deal with, some being more complicated than others. For instance, Portuguese possesses much more specific verb tenses than English does thus, the conjugation of verbs is more complex. The existence of *agreement between words* is also a source of problems in many languages. For instance, in Portuguese, nouns and adjectives have to agree, which is not the case in English. In German, besides the _Masculine_ and _Feminine_, there is also the gender _Neuter_. As we will see throughout this course, there are NL with very strange rules.
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nevertheless, despite the fact that some NLs are particularly complex, all of them share the same two main problems, which are the ones that makes them so difficult to deal with from a computational point of view:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nevertheless, despite the fact that some NLs are particularly complex, all of them share the same two main problems, which are the ones that make them so difficult to deal with from a computational point of view:
 
 * Linguistic variability: the possibility of expressing the same thing in many, many, many, many, many, many, many, many, many, many different ways.
 
@@ -38,7 +38,7 @@ NLs are definitely difficult to deal with, some being more complicated than othe
 
 **Exercise 2: Linguistic variability 2**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Imagine that you are building an agent that answers questions about yout university. Write a list of FAQs that the agent should be able to answer and then write all the paraphrases of each question in the FAQs list that you can imagine. Abort the process eventually.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Imagine that you are building an agent that answers questions about your university. Write a list of FAQs that the agent should be able to answer and then write all the paraphrases of each question in the FAQs list that you can imagine. Abort the process eventually.
 
 ---
 
@@ -53,7 +53,7 @@ NLs are definitely difficult to deal with, some being more complicated than othe
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The word _banco_ is ambiguous: it can be that thing where you can sit or the place where you can put your money. The word _Degrau_ is not ambiguous, but if somebody tells you that Degrau is the name of his/her dog, the meaning of the sentence completely changes. We call this lexical ambiguity (notice that the fact that it starts with a capital letter can give you a clue that it is not being used in the usual way).
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The third situation is a classic example of what we call syntactic ambiguity, because the main problem is the relation between the syntactic constituents and how to connect them. Who had the telescope? Pedro or the man in the mountain? The man was in the mountain or it was Pedro who was in the mountain? This case also illustrates a complicated phenomena, known in NLP as the PP-attachment problem (where PP, stands for prepositional phrase), where the machine should be able to identify to which phrase the PP is attached. However, other constituents can also pose a similar problem. This is the case of examples 4 and 5. In the first case the relative sentence que tenha ´agua quente is almost sure related with piscina and, in the second case, que tenha suite nupcial is related with hotel. You should understand that the main problem is that we, humans, are able to decide that some interpretations are possible and others aren’t; however, it is very difficult to make the computer understand which are the correct interpretations. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The third situation is a classic example of what we call syntactic ambiguity, because the main problem is the relation between the syntactic constituents and how to connect them. Who had the telescope? Pedro or the man in the mountain? The man was in the mountain or it was Pedro who was in the mountain? This case also illustrates a complicated phenomena, known in NLP as the PP-attachment problem (stands for prepositional phrase), where the machine should be able to identify to which phrase the PP is attached. However, other constituents can also pose a similar problem. This is the case of examples 4 and 5. In the first case the relative sentence que tenha água quente is almost sure related with piscina and, in the second case, que tenha suite nupcial is related with hotel. You should understand that the main problem is that we, humans, are able to decide that some interpretations are possible and others aren’t; however, it is very difficult to make the computer understand which are the correct interpretations. 
 
 ---
 **Exercise 3: Syntactic Ambiguity**
@@ -64,7 +64,7 @@ NLs are definitely difficult to deal with, some being more complicated than othe
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finally, consider the sentence _O general bateu a bota_. As _bateu a bota_ is an *idiomatic expression* that means _to die_, from that sentence we are not able to understand what happened with the general. As this sentence can be understood both ways – literally and figuratively – it is an ambiguous idiomatic expression.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The main problem with ambiguity is that sometimes even informations sources that should be 100% clear, are ambiguous. For instance, consider the sentence (taken from a Portuguese newspaper):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The main problem with ambiguity is that sometimes even informations source that should be 100% clear, are ambiguous. For instance, consider the sentence (taken from a Portuguese newspaper):
 
 > _Espanha: Portugal será o último país da UE a recorrer à ajuda externa._
 
@@ -158,7 +158,7 @@ this course:
 
 It should be clear that there are tools for almost everything in NLP.
 My advice: don't implement your own morphologic analyzer or syntactic
-parser. Somebody already did it and you are just losing your time. The only
+parser. Somebody already did it and you are just wasting your time. The only
 reasons I can accept for implementing an existing tool are the following: a)
 the existing tool is really bad; b) the existing tool is a black box, and you
 need to have control of some of its internal behaviour.
@@ -178,7 +178,7 @@ applications that you probably heard about:
 Involved in these systems are research areas such as:
 
 * Speech Recognition/Synthesis: allow you to transcribe what is said and to transform text into speech, respectively.
-* Speech/Natural Language Understanding: which allows you to understand what was said.
+* Speech/Natural Language Understanding: allows you to understand what was said.
 * Machine Translation: translation systems. These can also take speech as input and return speech in the output (Speech-to-Speech Machine Translation).
 * Dialogue Systems: systems with which you can talk to in order to ask for information or make them do some task for you (reserve tickets, switch on/off the TV, etc.);
 * Question/Answering (QA): systems that contrary to search engines, accept queries in NL (also called questions :-)) and try to return the exact answer to that question (and not a set of documents where the answer may be found);

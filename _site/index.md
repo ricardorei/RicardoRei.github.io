@@ -7,11 +7,11 @@
 
 > Text by: [Luísa Coheur](authors.md)
 
-Hello and welcome to the Natural Language (NL) class, where you will learn how difficult to formalize and deal with natural languages are. You have probably learned to program in C, Java or Python, but during this semester you will understand that those are languages for babies. Do you think C syntax is complicated Do you think that a compiler for Java is difficult to write? Please! Try to do it for Portuguese! 
+Hello and welcome to the Natural Language (NL) class, where you will learn how difficult to formalize and deal with natural languages are. You have probably learned to program in C, Java or Python, but during this semester you will understand that those are languages for babies. Do you think C syntax is complicated? Do you think that a compiler for Java is difficult to write? Please! Try to do it for Portuguese! 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In fact, one of the major problems when dealing with NLs is that they are inherently ambiguous, contrary to formal languages that are designed to be unambiguous. Words are ambiguous, sentences are ambiguous, and even when we think they aren’t... well... they are. Really. Consider for example the sentence Read the book. If you say it referring to a book, it means that the book is worth to be read. However, if you say it about a movie, it is probably because the movie is bad. Scary, isn’t it? 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The other major problem is variability. We can say the same think in many different ways. That is, there is a panoply of ways of saying the same think. In other words: we can verbalise something by using different words. Meaning that the same think can be expressed by using different word sequences. Or... Hum... Got the idea?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The other major problem is variability. We can say the same thing in many different ways. That is, there is a panoply of ways of saying the same thing. In other words: we can verbalise something by using different words. Meaning that the same thing can be expressed by using different word sequences. Or... Hum... Got the idea?
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nothing in Natural Language Processing (NLP) is for free, nothing rules 100% of the time, and you will have to live with probabilities. Yes, I know, probably not your favourite class, but there is nothing I can do about it: we will have to cope with incertitude to survive. So a question arises: **are you sure you are ready?**
 
@@ -25,13 +25,20 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 
 
 ## Chapters:
-1. [Chapter 1 - What? Why? Who? Where?](chapters/chap_1.md)
-2. [Chapter 2 - Methodology, corpora and evaluation](chapters/chap_2.md)
-3. [Chapter 3 - Regular Expressions](chapters/chap_3.md)
-4. [Chapter 4 - Words don’t come easy](chapters/chap_4.md)
-5. [Chapter 5 - N-grams](chapters/chap_5.md)
-5. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md)
-5. [Chapter 7 - Syntax important Natural very Language is](chapters/chap_7.md)
+1. [Chapter 1 - What? Why? Who? Where?](chapters/chap_1.md) - by [Luísa Coheur](authors.md)
+2. [Chapter 2 - Methodology, corpora and evaluation](chapters/chap_2.md) - by [Luísa Coheur](authors.md)
+3. [Chapter 3 - Regular Expressions](chapters/chap_3.md) - by [Luísa Coheur](authors.md)
+4. [Chapter 4 - Words don’t come easy](chapters/chap_4.md) - by [Luísa Coheur](authors.md)
+5. [Chapter 5 - N-grams](chapters/chap_5.md) - by [Luísa Coheur](authors.md)
+5. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md) - by [Luísa Coheur](authors.md)
+5. [Chapter 7 - Syntax important Natural very Language is](chapters/chap_7.md) - by [Luísa Coheur](authors.md)
+
+## Notebooks
+> Notebooks developed by: <a href="./authors.html#ricardo">Ricardo Rei</a>
+
+We recommend installing the [anaconda-navigator](https://docs.anaconda.com/anaconda/navigator/) in order to run the course notebooks.
+1. Python Refresher - <a href="notebooks/Python-Refresher.ipynb.zip">Download Notebook</a>
+2. Gender Classification for Names - <a href="notebooks/Gender-Classification.zip">Download Notebook</a>
 
 
 ## Editors:

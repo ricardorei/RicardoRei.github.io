@@ -33,6 +33,13 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 5. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md) - by [Luísa Coheur](authors.md)
 5. [Chapter 7 - Syntax important Natural very Language is](chapters/chap_7.md) - by [Luísa Coheur](authors.md)
 
+## Notebooks
+> Notebooks developed by: <a href="./authors.html#ricardo">Ricardo Rei</a>
+
+We recommend installing the [anaconda-navigator](https://docs.anaconda.com/anaconda/navigator/) in order to run the course notebooks.
+1. Python Refresher - <a href="notebooks/Python-Refresher.ipynb.zip">Download Notebook</a>
+2. Gender Classification for Names - <a href="notebooks/Gender-Classification.zip">Download Notebook</a>
+
 
 ## Editors:
 
