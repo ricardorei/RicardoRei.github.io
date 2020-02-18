@@ -39,8 +39,9 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 We recommend installing the [anaconda-navigator](https://docs.anaconda.com/anaconda/navigator/) in order to run the course notebooks.
 1. Python Refresher - <a href="notebooks/Python-Refresher.ipynb.zip">Download Notebook</a>
 2. Feature Engineering for Gender Classification - <a href="notebooks/Gender-Classification.zip">Download Notebook</a>
-3. Keywords Extraction - <a href="notebooks/Keywords-Extraction.zip">Download Notebook</a>
-4. Linear Classifiers from "Scratch" - <a href="notebooks/Linear-Classifiers.zip">Download Notebook</a>
+3. Review Analysis - Focus on Preprocessing - <a href="notebooks/Review-Analysis.zip">Download Notebook</a>
+4. Keywords Extraction - <a href="notebooks/Keywords-Extraction.zip">Download Notebook</a>
+5. Linear Classifiers from "Scratch" - <a href="notebooks/Linear-Classifiers.zip">Download Notebook</a>
 
 ## Editors:
 
