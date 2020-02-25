@@ -30,17 +30,18 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 3. [Chapter 3 - Regular Expressions](chapters/chap_3.md)
 4. [Chapter 4 - Words don’t come easy](chapters/chap_4.md)
 5. [Chapter 5 - N-grams](chapters/chap_5.md)
-5. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md)
-5. [Chapter 7 - Syntax important Natural very Language is](chapters/chap_7.md)
+6. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md)
+7. [Chapter 7 - Syntax important Natural very Language is](chapters/chap_7.md)
 
 ## Notebooks
-> Notebooks developed by: <a href="./authors.html#ricardo">Ricardo Rei</a>
+> Notebooks developed by: <a href="./authors.html#ricardo">Ricardo Rei</a> and <a href="./authors.html#nuno">Nuno Miguel Guerreiro</a>
 
 We recommend installing the [anaconda-navigator](https://docs.anaconda.com/anaconda/navigator/) in order to run the course notebooks.
 1. Python Refresher - <a href="notebooks/Python-Refresher.ipynb.zip">Download Notebook</a>
 2. Feature Engineering for Gender Classification - <a href="notebooks/Gender-Classification.zip">Download Notebook</a>
-3. Keywords Extraction - <a href="notebooks/Keywords-Extraction.zip">Download Notebook</a>
-4. Linear Classifiers from "Scratch" - <a href="notebooks/Linear-Classifiers.zip">Download Notebook</a>
+3. Review Analysis - Focus on Preprocessing - <a href="notebooks/Review-Analysis.zip">Download Notebook</a>
+4. Keywords Extraction - <a href="notebooks/Keywords-Extraction.zip">Download Notebook</a>
+5. Linear Classifiers from "Scratch" - <a href="notebooks/Linear-Classifiers.zip">Download Notebook</a>
 
 ## Editors:
 
@@ -48,8 +49,12 @@ We recommend installing the [anaconda-navigator](https://docs.anaconda.com/anaco
 
 <a href="./authors.html#ricardo">Ricardo Rei</a>
 
+<a href="./authors.html#nuno">Nuno Miguel Guerreiro</a>
+
 ### Support or Contact
 
 Luísa Coheur: <a href = "mailto: luisa.coheur@inesc-id.pt">luisa.coheur@inesc-id.pt</a> 
 
 Ricardo Rei: <a href = "mailto: ricardo.rei@unbabel.com">ricardo.rei@unbabel.com</a>
+
+Nuno Miguel Guerreiro: <a href = "mailto: nuno.guerreiro@unbabel.com">nuno.guerreiro@unbabel.com</a>
