@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,maximum-scale=2">
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=e8be3a23c6e1b595df5e2154b76c0ffbf2e571fe">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=04c806c6a0c0350dc2fd9a3dc33327f6eae745f6">
 
 <!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>NLP in a Nut(s)shell | Readings &amp; materials for learning NLP from the ground up!</title>
@@ -52,9 +52,121 @@
   <p>Text by: <a href="authors.md">Luísa Coheur</a></p>
 </blockquote>
 
+<p><strong>Syntax</strong> respects the way words can be organized in sentences. At this point,
+I hope that it is clear in your mind that the syntax of any programming
+language is much easier to capture than the one of any NL.</p>
+
+<p>     In NLP many people work in this research field. Some try to build
+grammars or tools to parse sentences; others work on algorithms. In the
+following we will remember some basic notions of syntax, we will study
+some formalisms to code grammars, and we will see different algorithms
+that perform syntactic analysis.</p>
+
+<h2 id="very-brief-review-of-the-portuguese-syntax---back-to-school-again">Very brief review of the Portuguese syntax - back to school again</h2>
+
+<p>Different sentence types:</p>
+
+<ul>
+  <li>Declarative: O CORPO DE JOAQUIM FOI DESCOBERTO NA MANHÃ SEGUINTE.</li>
+  <li>Interrogative: QUEM PODERIA TER FEITO TAMANHA MALDADE? - interrogava-se uma vizinha.</li>
+  <li>Imperative: MINHA SENHORA, SAIA-ME DAQUI! – a voz do inspector Morcela não deixava espaço para desobediências.</li>
+  <li>Exclamatory: COITADINHO! – ainda comentou a senhora antes de desaparecer. Ia ser um dia difícil: tinha tanta coisas para contar às amigas.</li>
+</ul>
+
+<p>Main constituents of a sentence:</p>
+<ul>
+  <li>Subject: the entity (who or what) the sentence is about. Ex: O ALUNO fez o teste</li>
+  <li>Predicate: what is said about the subject. Ex: O aluno FEZ O TESTE</li>
+  <li>Direct Object: the receiver of the sentence action. Direct objects can be identified by asking: subject + verb + who? or what? = DIRECT OBJECT. Ex: O professor deu-lhe O TESTE</li>
+  <li>Indirect Object: identifies to (or for whom or what) the sentence action is performed (transitive verbs). It typically precedes the direct object. An indirect object can be identified by asking who or what received the direct object. Ex: O professor deu-LHE o test</li>
+  <li>Predicative (of the subject): gives sense to a verb, by adding features  to the subject. Ex: O professor anda contente da vida</li>
+</ul>
+
+<p>Main phrases:</p>
+<ul>
+  <li>Noun phrase: noun (or pronoun) + complements (optional). Ex: O JOÃO fugiu, AQUILO foi uma vergonha, A MAÇÃ VERDE E VENENOSA foi devorada pela Branca de Neve</li>
+  <li>Verbal phrase: verb + complements (optional). Ex: Não COSTUMAMOS SAIR, COMECEI A LER o livro, TENHO DE SAIR hoje, Eu TENHO UMA BARBIE</li>
+  <li>Adjectival phrase: adjective (or pronoun) + complements (optional). Ex: A rapariga MORENA fugiu, A aula é MARAVILHOSA</li>
+  <li>Propositional phrase: preposition + noun + complements (optional). Ex: Fui a casa DO MEU AMIGO</li>
+  <li>Adverbial phrase: Adverb + complements (optional). Ex: Foi um erro MUITO grande, FRANCAMENTE, não sei.</li>
+</ul>
+
+<p>Agreement:</p>
+<ul>
+  <li>Subject + Verb: Ex: O JOÃO FUGIU</li>
+  <li>Verb + predicative of the subject: Ex: SÃO 10 HORAS</li>
+  <li>Subject + predicative of the subject: Ex: O JOÃO estava CANSADO</li>
+</ul>
+
+<h2 id="formal-grammars">Formal Grammars</h2>
+
+<p>In this section you will see several formalisms for writing grammars. Some
+(at least one) you already know about. However, it should be said that there
+are many, many, many more formalisms.</p>
+
+<h3 id="context-free-grammars">Context Free Grammars</h3>
+<p>You have probably already met a <strong>CFG</strong> before. A <strong>CFG</strong> is a tuple <script type="math/tex">(N, T,
+S_0, R)</script>, in which:</p>
+
+<ul>
+  <li><script type="math/tex">N</script> is a set of non-terminal symbols;</li>
+  <li><script type="math/tex">T</script> is a set of terminal symbols (either words or POS tags);</li>
+  <li><script type="math/tex">S_0 \in T</script> is the grammar’s initial symbol;</li>
+  <li><script type="math/tex">R</script> is a set of rules in the form <script type="math/tex">A \to \alpha</script>, where <script type="math/tex">A \in N</script> and <script type="math/tex">\alpha \in (N \cup T)</script></li>
+</ul>
+
+<p>     A fundamental concept behind <strong>CFGs</strong> is the one of derivation. A derivation
+is a sequence of applications of grammar rules. In a derivation, a non
+terminal symbol <script type="math/tex">A</script> can be replaced with a symbol <script type="math/tex">\alpha</script> if there is a rule <script type="math/tex">A \to \alpha</script>.
+Also, if after the application of several rules we manage to reach <script type="math/tex">\alpha_n</script> from
+<script type="math/tex">\alpha_1</script>, we say that <script type="math/tex">\alpha_1</script> derives <script type="math/tex">\alpha_n</script> (which is denoted by <script type="math/tex">\alpha_1 \to \alpha_n</script>). A easy way
+to represent a derivation is through an analysis or parse tree (see Figure bellow).</p>
+
+<p align="center">
+<img align="center" src="../images/parse_tree.png" width="500" />
+<figcaption> Parse tree of "A Maria come sopa." </figcaption>
+</p>
+
+<p>     Another important concept associated with <strong>CFG</strong> (and grammars in general)
+is the one of language generated by a grammar, which can be
+defined as follows (where <script type="math/tex">L(G)</script> represents the language generated by the
+grammar <script type="math/tex">G = (N, T, S_0, R)</script> ):</p>
+
+<script type="math/tex; mode=display">L(G) = {W: S_0 \to_* W and W \in T^*}</script>
+
+<p>As an example, consider the <strong>CFG</strong> <script type="math/tex">G_1 = (N, T, S_0, R)</script>, in which:</p>
+<ul>
+  <li><script type="math/tex">N = {F, SN, SV, NOM, V, DET}</script>  </li>
+  <li><script type="math/tex">T = {a, Maria, sopa, come}</script>  </li>
+  <li><script type="math/tex">S_0 = F</script>  </li>
+  <li>
+    <script type="math/tex; mode=display">R = {F \to SN|SV, SN \to DET|NOM, SV \to V|SN, DET \to a, NOM \to Maria|sopa, V \to come}</script>
+  </li>
+</ul>
+
+<p>The sentence “A Maria come a sopa” belongs to <script type="math/tex">L(G_1)</script> and the Figure above, represents
+its derivation.</p>
+
+<hr />
+<p><strong>Exercise 24: CFG</strong></p>
+
+<p>Create a CFG for the following fragment of Portuguese and show that each
+sentence belongs to the grammar you have created by building the different
+derivation trees:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Portugal é um país da Europa.
+O Miguel come a sopa.
+Todas as crianças gostam de batatas-fritas.
+Todos os alunos fugiram pela janela.
+</code></pre></div></div>
+
+<hr />
+
+<p><strong>Chapter to be continued…</strong></p>
+
 <div>
   <a href="chap_6.html" style="float: left;">❮ Previous chapter</a>
-  <a href="chap_7.html" style="float: right;">Next chapter ❯</a>
+  <a href="chap_8.html" style="float: right;">Next chapter ❯</a>
 </div>
 
 <p><br /><br /></p>

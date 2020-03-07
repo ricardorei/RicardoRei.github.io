@@ -32,6 +32,9 @@ Are you still there? If so, maybe you are brave enough to embrace this voyage th
 5. [Chapter 5 - N-grams](chapters/chap_5.md)
 6. [Chapter 6 - Morphology? What is it? Is there a cure?](chapters/chap_6.md)
 7. [Chapter 7 - Syntax important Natural very Language is](chapters/chap_7.md)
+8. [Chapter 8 - Neural Networks for NLP](chapters/chap_8.md)
+9. [Chapter 9 - Word Embeddings](chapters/chap_9.md)
+
 
 ## Notebooks
 > Notebooks developed by: <a href="./authors.html#ricardo">Ricardo Rei</a> and <a href="./authors.html#nuno">Nuno Miguel Guerreiro</a>
