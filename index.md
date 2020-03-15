@@ -45,6 +45,7 @@ We recommend installing the [anaconda-navigator](https://docs.anaconda.com/anaco
 3. Review Analysis - Focus on Preprocessing - <a href="notebooks/Review-Analysis.zip">Download Notebook</a>
 4. Keywords Extraction - <a href="notebooks/Keywords-Extraction.zip">Download Notebook</a>
 5. Linear Classifiers from "Scratch" - <a href="notebooks/Linear-Classifiers.zip">Download Notebook</a>
+6. Word Embeddings - Skip-Gram Model - <a href="notebooks/Word-Embeddings.ipynb.zip">Download Notebook</a>
 
 ## Editors:
 
