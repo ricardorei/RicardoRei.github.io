@@ -292,7 +292,7 @@ However, word multiplicity is kept.
 length (a zero value means that there is nothing in common between two
 words; one is the highest possible value).
 
-$$ \textit{Jaccard} (s, t) = \frac{|s \cap t|}{|s \cap t|}$$
+$$ \textit{Jaccard} (s, t) = \frac{|s \cap t|}{|s \cup t|}$$
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A different philosophy is used in the Dice measure, in which strings with
 different lengths are not so strongly penalized:
